@@ -1,0 +1,17 @@
+.containerPrincipalHeader {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10px 0px 0px 10px; */
+    background-color: maroon;
+    color: white;
+}
+
+.titulo {
+    width: 80%;
+    display: flex;
+    flex-direction: column-reverse ;
+}

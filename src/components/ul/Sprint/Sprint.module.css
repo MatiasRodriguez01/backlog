@@ -1,0 +1,47 @@
+.containerSprint {
+    width: 80%;
+    height: auto;
+    background-color: rgb(247, 233, 233);
+    margin: 10px;
+    padding: 10px;
+    gap: 1.5vh;
+    border-radius: 0.4rem;
+}
+
+.containerBotones {
+    width: 100%;
+    display: flex;
+    flex-direction: center;
+    justify-content: flex-end;
+}
+
+.botones {
+    width: 10vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:1vh;
+    margin-top: 0.5rem;
+}
+
+.botones span {
+    color: white;
+    font-size: 25px;
+}
+
+.botones button {
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+}
+
+.botonAzul {
+    background-color: rgb(49, 49, 204);
+    border: none;
+    border-radius: 0.4rem;
+}
+
+.botonRojo {
+    background-color: rgb(230, 35, 35);
+    border: none;
+    border-radius: 0.4rem;
+}

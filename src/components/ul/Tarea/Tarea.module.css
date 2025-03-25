@@ -1,0 +1,77 @@
+.containerPrincipalTarea {
+    width: 92%;
+    height: auto;
+    background-color: rgb(221, 207, 207);
+    margin: 1rem;
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+}
+
+.containerPrincipalTarea p {
+    font-size: 0.8rem;
+}
+
+.botones {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2vh;
+    margin-top: 0.5rem;
+}
+
+.botones span {
+    width: auto;
+    height: 1vh;
+    padding: 0.2rem; 
+    font-size: 21px;
+    padding: 0;
+    align-items: center;
+    color: white;
+}
+
+.botones select  {
+    width: auto;
+    height: 5vh;
+    padding: 0.2rem;   
+    background-color: orange;
+    border-radius: 0.4rem;
+    border: none;
+}
+
+.botones option {
+    background-color: aliceblue;
+}
+
+.azul {
+    background-color: rgb(49, 49, 204);
+    border: none;
+    border-radius: 0.4rem;
+    padding: 0.1rem;
+
+}
+
+.red {
+    background-color: rgb(230, 35, 35);
+    border: none;
+    border-radius: 0.4rem;
+    padding: 0.1rem;
+}
+
+.botonBacklog {
+    background-color: rgb(66, 219, 66);
+    width: 12vw;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vh;
+    border: none;
+    border-radius: 0.4rem;
+}
+
+.botonBacklog span {
+    margin-bottom: 0.9rem;
+}

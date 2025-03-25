@@ -1,0 +1,60 @@
+.containerPrincipal {
+    background-color: rgb(238, 212, 178);
+    width: 78%;
+    height: 100%;
+    gap: 4vh;
+}
+
+.titulo {
+    margin-top: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton {
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+.boton button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 8vw;
+    height: 6vh;
+    color: white;
+    background-color: rgb(49, 49, 204);
+    border: none;
+    border-radius: 0.4rem
+}
+
+.containerTareas {
+    width: 100%;
+    /* display: grid; */
+    display: flex;
+    flex-direction: grid;
+    justify-content: space-evenly;
+    align-items: center;
+    /* overflow-y: scroll; */
+}
+
+
+.proceso, .pendiente, .completado {
+    width: 25vw;
+    height: 80vh;
+    background-color: rgb(223, 180, 125);
+    border-radius: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
