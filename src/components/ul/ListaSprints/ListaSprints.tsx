@@ -11,7 +11,7 @@ const ListaSprints = () => {
         </button>
         <div className={styles.containerPrincipal}>
           <div className={styles.titulo}>
-            <div className={styles.boton}>
+            <div className={styles.buttonSprints}>
               <h2>Lista de Sprints</h2>
               <button>
                 <span className="material-symbols-outlined">playlist_add</span>

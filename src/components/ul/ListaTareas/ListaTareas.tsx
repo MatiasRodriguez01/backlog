@@ -9,7 +9,7 @@ const ListaTareas = () => {
                 <div className={styles.titulo}>
                     <h2>Nombre de la sprint</h2>
                 </div>
-                <div className={styles.boton}>
+                <div className={styles.buttonAddTarea}>
                     <h2>Tareas en la sprint: </h2>
                     <button>
                         <p>Crear Tarea</p>
