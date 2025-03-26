@@ -22,6 +22,8 @@ const ListaTareas = () => {
             </div>
             <Tarea />
             <Tarea />
+            <Tarea />
+            <Tarea />
           </div>
           <div className={styles.proceso}>
             <div className={styles.titulo}>

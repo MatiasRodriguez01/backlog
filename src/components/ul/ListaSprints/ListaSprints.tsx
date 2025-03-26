@@ -21,6 +21,8 @@ const ListaSprints = () => {
           </div>
           <div className={styles.containerTargetas}>
             <Sprint />
+            <Sprint />
+            <Sprint />
           </div>
         </div>
       </div>

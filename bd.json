@@ -1,0 +1,25 @@
+{
+    "proyectoList": {
+        "proyectos": [
+            {
+                "id": "a1f5c7b3-0e3f-4978-bc55-2f6a5dfb8319",
+                "nombre": "Proyecto Alpha",
+                "descripcion": "Este es un proyecto de ejemplo para el curso.",
+                "fechaInicio": "2025-01-01",
+                "fechaFin": "2025-06-30",
+                "miembros": [
+                    {
+                        "id": "5b8f79d7-1db4-4cfa-a93f-7b18ad5749cc",
+                        "nombre": "Juan Pérez",
+                        "rol": "Desarrollador"
+                    },
+                    {
+                        "id": "6c8f4d39-3c88-4854-bc69-2a5f10556899",
+                        "nombre": "Ana Gómez",
+                        "rol": "Diseñadora"
+                    }
+                ]
+            }
+        ]
+    }
+}
