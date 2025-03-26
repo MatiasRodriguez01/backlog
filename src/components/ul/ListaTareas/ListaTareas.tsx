@@ -21,6 +21,7 @@ const ListaTareas = () => {
               <h2>Pendiente</h2>
             </div>
             <Tarea />
+            <Tarea />
           </div>
           <div className={styles.proceso}>
             <div className={styles.titulo}>
