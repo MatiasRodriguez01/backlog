@@ -28,6 +28,9 @@ const ListaTareas = () => {
               <h2>En proceso</h2>
             </div>
             <Tarea />
+            <Tarea />
+            <Tarea />
+            <Tarea />
           </div>
           <div className={styles.completado}>
             <div className={styles.titulo}>
