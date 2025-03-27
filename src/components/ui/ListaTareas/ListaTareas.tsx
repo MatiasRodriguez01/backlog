@@ -1,7 +1,11 @@
 import Tarea from "../Tarea/Tarea";
 import styles from "./ListaTareas.module.css";
 
+
 const ListaTareas = () => {
+
+
+
   return (
     <>
       <div className={styles.containerPrincipal}>
@@ -10,8 +14,9 @@ const ListaTareas = () => {
         </div>
         <div className={styles.buttonAddTarea}>
           <h2>Tareas en la sprint: </h2>
-          <button>
-            <p>Crear Tarea</p>
+          <button className={styles.containerButton}
+          >
+            Crear Tarea
             <span className="material-symbols-outlined">playlist_add</span>
           </button>
         </div>
@@ -21,17 +26,11 @@ const ListaTareas = () => {
               <h2>Pendiente</h2>
             </div>
             <Tarea />
-            <Tarea />
-            <Tarea />
-            <Tarea />
           </div>
           <div className={styles.proceso}>
             <div className={styles.titulo}>
               <h2>En proceso</h2>
             </div>
-            <Tarea />
-            <Tarea />
-            <Tarea />
             <Tarea />
           </div>
           <div className={styles.completado}>

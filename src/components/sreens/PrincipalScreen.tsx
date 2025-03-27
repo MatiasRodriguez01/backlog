@@ -1,6 +1,6 @@
-import Header from "../ul/header/Header"
-import ListaTareas from "../ul/ListaTareas/ListaTareas"
-import ListaSprints from "../ul/ListaSprints/ListaSprints"
+import Header from "../ui/header/Header"
+import ListaTareas from "../ui/ListaTareas/ListaTareas"
+import ListaSprints from "../ui/ListaSprints/ListaSprints"
 
 const PrincipalScreen = () => {
     return (

@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "dbDev": "npx json-server --watch db.json --port 2000",
     "preview": "vite preview"
   },
   "dependencies": {
