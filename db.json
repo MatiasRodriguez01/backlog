@@ -1,24 +1,39 @@
 {
-  "backlog": { 
-   "tareas": [ 
-     { 
-       "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d", 
-       "titulo": "Tarea backlog", 
-       "descripcion": "Descripcion tarea backlog", 
-       "estado": "pendiente", 
-       "fechaLimite": "2025-03-05" 
-     } 
-   ] 
- }, 
+  "backlog": {
+    "tareas": [
+      {
+        "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+        "titulo": "Tarea backlog",
+        "descripcion": "Descripcion tarea backlog",
+        "estado": "pendiente",
+        "fechaLimite": "2025-03-05"
+      }
+    ]
+  },
   "proyectoList": {
     "proyectos": [
       {
-        "id": "2025-03-30T04:44:49.396Z",
+        "id": "1",
         "nombre": "wexrctvy",
         "descripcion": "exrctvyg",
         "fechaInicio": "2025-03-20",
         "fechaCierre": "2025-03-20",
-        "tareas": []
+        "tareas": [
+          {
+            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+            "titulo": "Tarea 1",
+            "descripcion": "Descripcion tarea backlog",
+            "estado": "pendiente",
+            "fechaLimite": "2025-03-05"
+          },
+          {
+            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+            "titulo": "Tarea 2",
+            "descripcion": "Descripcion tarea backlog",
+            "estado": "completo",
+            "fechaLimite": "2025-03-06"
+          }
+        ]
       }
     ]
   }
