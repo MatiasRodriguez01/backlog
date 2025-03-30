@@ -13,7 +13,8 @@ const initialState: IProyecto = {
   nombre: "",
   descripcion: "",
   fechaInicio: "",
-  fechaCierre: ""
+  fechaCierre: "",
+  tareas: []
 };
 
 export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {

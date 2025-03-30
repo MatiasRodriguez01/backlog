@@ -1,13 +1,13 @@
 import axios from "axios";
 import { IProyecto } from "../../types/IInterfaces";
-import { API_URL } from "../../utils/constantes";
+import { API_PROYECTS } from "../../utils/constantes";
 import { putProyectoList } from "./proyectoList";
 
 
 // tener todos los proyectos
 export const getProyectosController = async () => {
     try {
-        const response = await axios.get<{ proyectos: IProyecto[]}>(API_URL);
+        const response = await axios.get<{ proyectos: IProyecto[]}>(API_PROYECTS);
         const p: IProyecto[] = (response.data.proyectos)
         console.log("poryecto: ", p)
         return p;

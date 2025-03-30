@@ -8,6 +8,7 @@ export interface IProyecto {
     descripcion: string
     fechaInicio: string
     fechaCierre: string
+    tareas: ITareas[]
 }
 
 export interface ITareas {
