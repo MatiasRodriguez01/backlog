@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react"
-import { sprintStore } from "../../../store/sprintStore"
-import styles from "./ListaSprints.module.css"
-import { ISprint } from "../../../types/ISprint"
-import { useSprints } from "../../../hooks/useSprints"
-import { CardListSprint } from "../CardList/CardListSprint"
-import { ModalSprint } from "../Modal/ModalSprint"
+import styles from "./ListaProyecto.module.css"
+import { useProyecto } from "../../../hooks/useProyecto"
+import { CardProyect } from "../CardProyect/CardProyect"
+import { ModalProyecto } from "../Modal/ModalProyecto"
+import { proyectoStrore } from "../../../store/proyectoStore"
+import { IProyecto } from "../../../types/IInterfaces"
 
-const ListaSprints = () => {
+const ListaProyecto = () => {
 
-  const setSprintActivo = sprintStore((state)=>state.setSprintActivo);
+  const setProyectotActivo = proyectoStrore((state) => state.setProyectotActivo);
 
-  const {getSprints, sprints} = useSprints();
+  const {getProyectos, proyectos} = useProyecto();
 
   useEffect(()=>{
-    getSprints()
+    getProyectos()
   },[]);
+
   const [openModalSprint, setOpenModalSprint] = useState(false)
   // const sprints = sprintStore((state)=>state.sprints)
 
-  const handleOpenModalEdit = (tarea: ISprint) => {
-    setSprintActivo(tarea);
+  const handleOpenModalEdit = (tarea: IProyecto) => {
+    setProyectotActivo(tarea);
     setOpenModalSprint(true);
   };
 
@@ -41,6 +42,7 @@ const ListaSprints = () => {
               <button
               onClick={()=>{
                 setOpenModalSprint(true)
+                setProyectotActivo(null)
               }}
               >
                 <span className="material-symbols-outlined">playlist_add</span>
@@ -49,9 +51,9 @@ const ListaSprints = () => {
             <hr style={{ width: '80%', height: '0.1vh', backgroundColor: 'grey' }} />
           </div>
           <div className={styles.containerTargetas}>
-            {sprints.length > 0 ?(
-              sprints.map((el)=>(
-                <CardListSprint handleOpenModalEdit={handleOpenModalEdit} sprint={el}/>
+            {proyectos.length > 0 ?(
+              proyectos.map((el)=>(
+                <CardProyect handleOpenModalEdit={handleOpenModalEdit} sprint={el}/>
               ))
             ):(
               <div>
@@ -61,10 +63,10 @@ const ListaSprints = () => {
             {/* <Sprint /> */}
           </div>
         </div>
-      {openModalSprint && <ModalSprint handleCloseModal={handleCloseModal}/>}
+      {openModalSprint && <ModalProyecto handleCloseModal={handleCloseModal}/>}
       </div>
     </>
   )
 }
 
-export default ListaSprints
+export default ListaProyecto

@@ -1,6 +1,6 @@
 
 export interface ITarea{
-    id:String
+    id?:string
     titulo:string
     descripcion: string
     fechaInicio: string

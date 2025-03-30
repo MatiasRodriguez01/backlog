@@ -1,13 +1,13 @@
 import Header from "../ui/header/Header"
 import ListaTareas from "../ui/ListaTareas/ListaTareas"
-import ListaSprints from "../ui/ListaSprints/ListaSprints"
+import ListaProyecto from "../ui/ListaProyectos/ListaProyecto"
 
 const PrincipalScreen = () => {
     return (
         <>
             <Header />
             <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-                <ListaSprints />
+                <ListaProyecto />
                 <ListaTareas />
             </div>
         </>

@@ -3,11 +3,11 @@
     top: 0;
     left: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 100vw;
-    height: 150vh;
-    backdrop-filter: brightness(90%) blur(2px);
+    height: 100vh;
+    backdrop-filter: brightness(90%) blur(2px)
 
 }
 .contentPopUp{

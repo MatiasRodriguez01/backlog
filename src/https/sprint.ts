@@ -1,7 +1,6 @@
 import axios from "axios"
 import { ISprint } from "../types/ISprint"
-
-const API_URL= "http://localhost:2000/"
+import { API_URL } from "../utils/constantes" // Imporrtamos la url del json-server
 
 export const getAllSprints = async ()=>{
     try {
