@@ -1,26 +1,57 @@
+import { FC, useState } from 'react';
+import { IProyecto } from '../../../types/IInterfaces'
 import styles from './Sprint.module.css'
+import { useProyecto } from '../../../hooks/useProyecto';
+import { CardProyect } from '../CardProyect/CardProyect';
 
-const Sprint = () => {
+type IString = {
+    proyecto: IProyecto;
+    handleOpenModalEdit: (proyecto: IProyecto) => void;
+}
+
+const Sprint: FC<IString> = ({ proyecto, handleOpenModalEdit }) => {
+
+    const { eliminarProyecto } = useProyecto();
+
+    const [openModalView, setOpenModalView] = useState<boolean>(false)
+
     return (
-        <div className={styles.containerSprint}>
-            <b><h3>sprint nombre</h3></b>
-            <p><b>inicion: </b>Fecha</p>
-            <p><b>cierre: </b>Fecha</p>
-            <div className={styles.containerBotones}>
+        <>
+            <div className={styles.containerSprint}>
+                <b><h3>nombre: </h3>{proyecto.nombre}</b>
+                <b><h3>descripcion: </h3>{proyecto.descripcion}</b>
+                <p><b>inicion: </b>{proyecto.fechaInicio}</p>
+                <p><b>cierre: </b>{proyecto.fechaCierre}</p>
+                <div className={styles.containerBotones}>
 
-                <div className={styles.botones}>
-                    <button className={styles.botonAzul}>
-                        <span className="material-symbols-outlined">visibility</span>
-                    </button>
-                    <button className={styles.botonAzul}>
-                        <span className="material-symbols-outlined">edit</span>
-                    </button>
-                    <button className={styles.botonRojo}>
-                        <span className="material-symbols-outlined">delete</span>
-                    </button>
+                    <div className={styles.botones}>
+                        <button
+                            onClick={() => setOpenModalView(true)}
+                            className={styles.botonAzul}>
+                            <span className="material-symbols-outlined">visibility</span>
+                        </button>
+                        <button
+                            onClick={() => handleOpenModalEdit(proyecto)}
+                            className={styles.botonAzul}>
+                            <span className="material-symbols-outlined">edit</span>
+                        </button>
+                        <button
+                            onClick={() => eliminarProyecto(proyecto.id!)}
+                            className={styles.botonRojo}>
+                            <span className="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            {
+                openModalView &&
+                <CardProyect
+                    sprint={proyecto}
+                    handleCloseModal={() => setOpenModalView(false)}
+                />
+            }
+        </>
     )
 }
 

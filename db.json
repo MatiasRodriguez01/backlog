@@ -1,5 +1,13 @@
 {
   "proyectoList": {
-    "proyectos": []
+    "proyectos": [
+      {
+        "id": "2025-03-30T04:44:49.396Z",
+        "nombre": "wexrctvy",
+        "descripcion": "exrctvyg",
+        "fechaInicio": "2025-03-20",
+        "fechaCierre": "2025-03-20"
+      }
+    ]
   }
 }

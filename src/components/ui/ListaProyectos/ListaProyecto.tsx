@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import styles from "./ListaProyecto.module.css"
 import { useProyecto } from "../../../hooks/useProyecto"
-import { CardProyect } from "../CardProyect/CardProyect"
 import { ModalProyecto } from "../Modal/ModalProyecto"
 import { proyectoStrore } from "../../../store/proyectoStore"
 import { IProyecto } from "../../../types/IInterfaces"
+import Sprint from "../Sprint/Sprint"
 
 const ListaProyecto = () => {
 
@@ -52,8 +52,8 @@ const ListaProyecto = () => {
           </div>
           <div className={styles.containerTargetas}>
             {proyectos.length > 0 ?(
-              proyectos.map((el)=>(
-                <CardProyect handleOpenModalEdit={handleOpenModalEdit} sprint={el}/>
+              proyectos.map((proyecto)=>(
+                <Sprint handleOpenModalEdit={handleOpenModalEdit} proyecto={proyecto}/>
               ))
             ):(
               <div>

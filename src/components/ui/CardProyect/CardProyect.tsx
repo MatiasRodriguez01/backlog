@@ -1,37 +1,26 @@
 import { FC } from 'react'
 import styles from "./CardProyect.module.css"
-import { useProyecto } from '../../../hooks/useProyecto';
 import { IProyecto } from '../../../types/IInterfaces';
 
 
-type ICardProyect={
+type ICardProyect = {
     sprint: IProyecto;
-    handleOpenModalEdit: (sprint: IProyecto)=>void
+    handleCloseModal: () => void
 }
-export const CardProyect: FC <ICardProyect> = ({sprint, handleOpenModalEdit}) => {
-
-    const { eliminarProyecto } = useProyecto()
-    const eliminarSprintPorNombre= () =>{
-        eliminarProyecto(sprint.id!)
-    }
-
-    const editarSprint= () =>{
-        handleOpenModalEdit(sprint)
-    }
+export const CardProyect: FC<ICardProyect> = ({ sprint, handleCloseModal }) => {
 
 
-  return (
-    <div>
-        <p>Nombre: {sprint.nombre}</p>
-        <p>Descripcion: {sprint.descripcion}</p>
-        <p>Fecha inicio: {sprint.fechaInicio} </p>
-        <p>
-            Fecha cierre: <b>{sprint.fechaCierre}</b>
-        </p>
-        <div className={styles.containerBotones}>
-            <button onClick={editarSprint}>Editar</button>
-            <button onClick={eliminarSprintPorNombre}>Eliminar</button>
+
+
+    return (
+        <div className={styles.modalContainer}>
+            <div className={styles.contentPopUp}>
+                <h2>{sprint.nombre}</h2>
+                <p>Descripcion: {sprint.descripcion}</p>
+                <p>Fecha inicio: {sprint.fechaInicio} </p>
+                <p>Fecha cierre: <b>{sprint.fechaCierre}</b></p>
+                <button onClick={handleCloseModal}>Editar</button>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
