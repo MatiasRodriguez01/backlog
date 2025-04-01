@@ -2,20 +2,25 @@ export interface IProyectosList {
     proyectos: IProyecto[]
 }
 
+export interface IBacklog {
+    tareas: ITarea[]
+}
+
 export interface IProyecto {
     id?: string,
     nombre: string
     descripcion: string
     fechaInicio: string
     fechaCierre: string
-    tareas: ITareas[]
+    tareas: ITarea[]
 }
 
-export interface ITareas {
+export interface ITarea {
     id?:string
+    idProyecto: string | null
     titulo:string
+    estado: string
     descripcion: string
-    fechaInicio: string
-    fechaFin:string
+    fechaLimite: string
 }
 

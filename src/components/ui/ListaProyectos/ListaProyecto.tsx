@@ -9,17 +9,20 @@ import Sprint from "../Sprint/Sprint"
 const ListaProyecto = () => {
 
   const setProyectotActivo = proyectoStrore((state) => state.setProyectotActivo);
+  const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
 
   const {getProyectos, proyectos} = useProyecto();
 
   useEffect(()=>{
     getProyectos()
-  },[]);
+    console.log("proyecto activo: ", proyectoActivo)
+  },[proyectoActivo]);
 
   const [openModalSprint, setOpenModalSprint] = useState(false)
   // const sprints = sprintStore((state)=>state.sprints)
 
   const handleOpenModalEdit = (tarea: IProyecto) => {
+    setProyectotActivo(null);
     setProyectotActivo(tarea);
     setOpenModalSprint(true);
   };
@@ -52,8 +55,8 @@ const ListaProyecto = () => {
           </div>
           <div className={styles.containerTargetas}>
             {proyectos.length > 0 ?(
-              proyectos.map((proyecto)=>(
-                <Sprint handleOpenModalEdit={handleOpenModalEdit} proyecto={proyecto}/>
+              proyectos.map((proyecto, index)=>(
+                <Sprint key={index} handleOpenModalEdit={handleOpenModalEdit} proyecto={proyecto}/>
               ))
             ):(
               <div>

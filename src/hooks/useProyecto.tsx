@@ -22,12 +22,12 @@ export const useProyecto = () => {
       setAgregarProyecto: state.setAgregarProyecto,
       setEditarProyecto: state.setEditarProyecto,
       setEliminarProyecto: state.setEliminarProyecto
-    })))
+    }))
+  )
 
   const getProyectos = async () => {
     try {
       const data = await getProyectosController();
-      console.log("useSprints getProyectos: ", data)
       if (data) setArrayProyectos(data);
     } catch (err) {
       console.error("Error al mostrar los proyectos", err)
@@ -38,7 +38,7 @@ export const useProyecto = () => {
     setAgregarProyecto(nuevoSprint);
     try {
       await createProyectoController(nuevoSprint)
-      Swal.fire("Exito", "Sprint creado correctamente", "success")
+      Swal.fire("Exito", "proyecto creado correctamente", "success")
     } catch (err) {
       setEliminarProyecto(nuevoSprint.id!)
       console.error("Error al crear un proyecto", err);
@@ -52,7 +52,7 @@ export const useProyecto = () => {
 
     try {
       await editProyectoController(sprintEditado)
-      Swal.fire("Exito", "Sprint actualizado correctamente", "success")
+      Swal.fire("Exito", "proyecto actualizado correctamente", "success")
     } catch (err) {
       if (estadoPrevio) setEditarProyecto(estadoPrevio);
       console.error("Error al editar un proyecto", err)
@@ -75,7 +75,7 @@ export const useProyecto = () => {
     setEliminarProyecto(idSprint)
     try {
       await deleteProyectoController(idSprint)
-      Swal.fire("Eliminado", "La tarea se elimino correctamente", "success")
+      Swal.fire("Eliminado", "El proyecto se elimino correctamente", "success")
     } catch (error) {
       if (estadoPrevio) setAgregarProyecto(estadoPrevio)
       console.log("Algo salio mal al eliminar: ", error);

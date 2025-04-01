@@ -3,6 +3,7 @@ import { IProyecto } from '../../../types/IInterfaces'
 import styles from './Sprint.module.css'
 import { useProyecto } from '../../../hooks/useProyecto';
 import { CardProyect } from '../CardProyect/CardProyect';
+import { proyectoStrore } from '../../../store/proyectoStore';
 
 type IString = {
     proyecto: IProyecto;
@@ -13,11 +14,18 @@ const Sprint: FC<IString> = ({ proyecto, handleOpenModalEdit }) => {
 
     const { eliminarProyecto } = useProyecto();
 
+    const setProyectotActivo = proyectoStrore((state) => state.setProyectotActivo);
+
+    const activo = () => {
+        setProyectotActivo(null)
+        setProyectotActivo(proyecto)
+    }
+
     const [openModalView, setOpenModalView] = useState<boolean>(false)
 
     return (
         <>
-            <div className={styles.containerSprint}>
+            <div onClick={activo} className={styles.containerSprint}>
                 <b><h3>nombre: </h3>{proyecto.nombre}</b>
                 <b><h3>descripcion: </h3>{proyecto.descripcion}</b>
                 <p><b>inicion: </b>{proyecto.fechaInicio}</p>
