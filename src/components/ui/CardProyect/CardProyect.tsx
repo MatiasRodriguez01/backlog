@@ -11,7 +11,6 @@ export const CardProyect: FC<ICardProyect> = ({ sprint, handleCloseModal }) => {
 
 
 
-
     return (
         <div className={styles.modalContainer}>
             <div className={styles.contentPopUp}>

@@ -20,7 +20,7 @@ const Sprint: FC<IString> = ({ proyecto, handleOpenModalEdit }) => {
             <div className={styles.containerSprint}>
                 <b><h3>nombre: </h3>{proyecto.nombre}</b>
                 <b><h3>descripcion: </h3>{proyecto.descripcion}</b>
-                <p><b>inicion: </b>{proyecto.fechaInicio}</p>
+                <p><b>inicio: </b>{proyecto.fechaInicio}</p>
                 <p><b>cierre: </b>{proyecto.fechaCierre}</p>
                 <div className={styles.containerBotones}>
 

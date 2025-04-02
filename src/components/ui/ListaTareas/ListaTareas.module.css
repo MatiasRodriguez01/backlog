@@ -1,5 +1,5 @@
 .containerPrincipal {
-    background-color: rgb(238, 212, 178);
+    background-color: #FFFFFF;
     width: 78%;
     height: 100%;
     gap: 4vh;
@@ -50,7 +50,7 @@
 .proceso, .pendiente, .completado {
     width: 25vw;
     height: 80vh;
-    background-color: rgb(223, 180, 125);
+    background-color: #CFD8DD;
     border-radius: 0.4rem;
     display: flex;
     flex-direction: column;
