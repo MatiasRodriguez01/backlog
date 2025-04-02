@@ -23,7 +23,6 @@ export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {
   // const proyectoActivo = proyectoStrore((state) => state.proyectoActivo)
 
   const setProyectotActivo = proyectoStrore((state) => state.setProyectotActivo)
-  
 
   const { crearProyecto, editarProyecto } = useProyecto()
 

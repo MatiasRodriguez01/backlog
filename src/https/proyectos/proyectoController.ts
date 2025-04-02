@@ -9,7 +9,6 @@ export const getProyectosController = async () => {
     try {
         const response = await axios.get<{ proyectos: IProyecto[]}>(API_PROYECTS);
         const p: IProyecto[] = (response.data.proyectos)
-        console.log("poryecto: ", p)
         return p;
     } catch (err) {
         console.error("algo salio mal en getProyectosController: ", err)
@@ -21,11 +20,11 @@ export const createProyectoController = async (newProyecto: IProyecto) => {
     try {
         const proyectosBd = await getProyectosController();
         if (proyectosBd) {
-            console.log("IF - createProyectoController: ", proyectosBd)
+            console.log("IF - : ", proyectosBd)
             await putProyectoList([...proyectosBd, newProyecto])
 
         } else {
-            console.log("ELSE - createProyectoController: ", proyectosBd)
+            console.log("ELSE - createProyectoController: no exiten vamos a crear proyectos!!")
             await putProyectoList([newProyecto])
         }
 

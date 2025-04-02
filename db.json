@@ -1,14 +1,16 @@
 {
   "backlog": {
-    "tareas": [
-      {
-        "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-        "titulo": "Tarea backlog",
-        "descripcion": "Descripcion tarea backlog",
-        "estado": "pendiente",
-        "fechaLimite": "2025-03-05"
-      }
-    ]
+    "tareas": 
+      [
+        {
+          "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+          "titulo": "Tarea backlog",
+          "descripcion": "Descripcion tarea backlog",
+          "estado": "pendiente",
+          "fechaLimite": "2025-03-05"
+        }
+      ]
+    
   },
   "proyectoList": {
     "proyectos": [
@@ -21,6 +23,7 @@
         "tareas": [
           {
             "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+            "idProyecto": "1",
             "titulo": "Tarea 1",
             "descripcion": "Descripcion tarea backlog",
             "estado": "pendiente",
@@ -28,13 +31,73 @@
           },
           {
             "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+            "idProyecto": "1",
             "titulo": "Tarea 2",
             "descripcion": "Descripcion tarea backlog",
-            "estado": "completo",
+            "estado": "completado",
+            "fechaLimite": "2025-03-06"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "nombre": "string 2",
+        "descripcion": "esta es una decripcion",
+        "fechaInicio": "2025-03-26",
+        "fechaCierre": "2025-03-28",
+        "tareas": [
+          {
+            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+            "idProyecto": "2",
+            "titulo": "Tarea 3",
+            "descripcion": "Descripcion tarea backlog",
+            "estado": "pendiente",
+            "fechaLimite": "2025-03-05"
+          },
+          {
+            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+            "idProyecto": "2",
+            "titulo": "Tarea 4",
+            "descripcion": "Descripcion tarea backlog",
+            "estado": "completado",
             "fechaLimite": "2025-03-06"
           }
         ]
       }
     ]
-  }
+  },
+  "tareas": [
+    {
+      "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+      "idProyecto": "1",
+      "titulo": "Tarea 1",
+      "descripcion": "Descripcion tarea backlog",
+      "estado": "pendiente",
+      "fechaLimite": "2025-03-05"
+    },
+    {
+      "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+      "idProyecto": "1",
+      "titulo": "Tarea 2",
+      "descripcion": "Descripcion tarea backlog",
+      "estado": "completado",
+      "fechaLimite": "2025-03-06"
+    },
+    {
+      "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+      "idProyecto": "2",
+      "titulo": "Tarea 3",
+      "descripcion": "Descripcion tarea backlog",
+      "estado": "pendiente",
+      "fechaLimite": "2025-03-05"
+    },
+    {
+      "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+      "idProyecto": "2",
+      "titulo": "Tarea 4",
+      "descripcion": "Descripcion tarea backlog",
+      "estado": "completado",
+      "fechaLimite": "2025-03-06"
+    }
+  ]
 }

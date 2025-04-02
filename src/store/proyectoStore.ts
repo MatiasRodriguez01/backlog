@@ -2,14 +2,13 @@ import { create } from "zustand";
 import { IProyecto } from "../types/IInterfaces";
 
 interface IProyectoStore {
-    proyectos: IProyecto[]
+    proyectos: IProyecto[];
     proyectoActivo: IProyecto | null;
-    setProyectotActivo: (proyectoActivo: IProyecto | null) => void
-    setArrayProyectos: (arrayDeSprint: IProyecto[]) => void
-    setAgregarProyecto: (nuevoSprint: IProyecto) => void
-    setEditarProyecto: (sprintActualizado: IProyecto) => void
-    setEliminarProyecto: (idProyecto: string) => void
- 
+    setProyectotActivo: (proyectoActivo: IProyecto | null) => void;
+    setArrayProyectos: (arrayDeSprint: IProyecto[]) => void;
+    setAgregarProyecto: (nuevoSprint: IProyecto) => void;
+    setEditarProyecto: (sprintActualizado: IProyecto) => void;
+    setEliminarProyecto: (idProyecto: string) => void;
 }
 
 export const proyectoStrore = create<IProyectoStore>((set) => ({

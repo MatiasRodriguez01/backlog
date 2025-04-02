@@ -1,9 +1,21 @@
-import Tarea from "../Tarea/Tarea";
+import { useEffect } from "react";
 import styles from "./ListaTareas.module.css";
+import Tarea from "../Tarea/Tarea";
+import { proyectoStrore } from "../../../store/proyectoStore";
+import useTareas from "../../../hooks/useTareas";
 
 
 const ListaTareas = () => {
 
+  const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
+
+  const { getTareas, getTareasPorProyecto, tareasPorProyecto } = useTareas()
+ 
+  useEffect(() => {
+    getTareas()
+    getTareasPorProyecto(proyectoActivo!)
+    
+  }, [ proyectoActivo ]); 
 
 
   return (
@@ -25,19 +37,50 @@ const ListaTareas = () => {
             <div className={styles.titulo}>
               <h2>Pendiente</h2>
             </div>
-            <Tarea />
+            {
+              proyectoActivo && (tareasPorProyecto.length > 0) ? (
+                tareasPorProyecto
+                  .filter((tarea) => (tarea.estado === "pendiente"))
+                  .map((tarea, index) => (
+                    <Tarea key={index} tarea={tarea} />
+                  ))
+              ) : (
+                <p>no hay tareas</p>
+              )
+            }
           </div>
           <div className={styles.proceso}>
             <div className={styles.titulo}>
               <h2>En proceso</h2>
             </div>
-            <Tarea />
+            {
+              proyectoActivo && (tareasPorProyecto.length > 0) ? (
+                tareasPorProyecto
+                  .filter((tarea) => (tarea.estado === "en_proceso"))
+                  .map((tarea, index) => (
+                    <Tarea key={index} tarea={tarea} />
+                  ))
+              ) : (
+                <p>no hay tareas</p>
+              )
+            }
           </div>
           <div className={styles.completado}>
             <div className={styles.titulo}>
               <h2>completado</h2>
             </div>
-            <Tarea />
+            {
+              proyectoActivo && (tareasPorProyecto.length > 0) ? (
+                tareasPorProyecto
+                  .filter((tarea) => (tarea.estado === "completado"))
+                  .map((tarea, index) => (
+                    <Tarea key={index} tarea={tarea} />
+
+                  ))
+              ) : (
+                <p>no hay tareas</p>
+              )
+            }
           </div>
         </div>
       </div>
