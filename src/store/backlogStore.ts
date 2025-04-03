@@ -1,18 +1,18 @@
 
-import { createStore } from 'zustand'
+import { create } from 'zustand'
 import { ITarea } from '../types/IInterfaces'
 
 interface IBacklogStore {
     tareas: ITarea[];
     tareaActiva: ITarea | null;
     setTareas: (arrayTareas: ITarea[]) => void;
-    setTareaActiva: (tarea: ITarea) => void;
+    setTareaActiva: (tarea: ITarea | null) => void;
     setAgregarTarea: (nuevaTarea: ITarea) => void;
     setEditarTarea: (tareaEditada: ITarea) => void;
     setEliminarTarea: (idTarea: string) => void;
 }
 
-export const backlogStore = createStore<IBacklogStore>((set) => ({
+export const backlogStore = create<IBacklogStore>((set) => ({
     tareas: [],
     tareaActiva: null,
     setTareas: (arrayTareas) => set(() => ({

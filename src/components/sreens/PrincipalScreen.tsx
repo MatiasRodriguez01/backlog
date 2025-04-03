@@ -4,16 +4,18 @@ import ListaProyecto from "../ui/ListaProyectos/ListaProyecto"
 import { useState } from "react";
 import Backlog from "../ui/BacklogPage/Backlog";
 
+import styles from './PrincipalScreen.module.css'
+
 const PrincipalScreen = () => {
     const [isBacklogView, setIsBacklogView] = useState(false);
     return (
         <>
             <Header />
-            <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+            <div className={styles.containerPage}>
                 <ListaProyecto setIsBacklogView={setIsBacklogView} isBacklogView={isBacklogView} />
-                <div>
-                    {isBacklogView ? <Backlog/> : <ListaTareas/>}
-                </div>
+                {
+                    isBacklogView ? <Backlog /> : <ListaTareas />
+                }
             </div>
         </>
     )

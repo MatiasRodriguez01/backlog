@@ -7,6 +7,11 @@ interface ITareaCard {
 }
 
 const Tarea: FC<ITareaCard> = ({ tarea }) => {
+
+    // const proyectoActivo = proyectoStrore((state) => (state.proyectoActivo))
+
+    
+
     return (
         <>
             <div className={styles.containerPrincipalTarea}>

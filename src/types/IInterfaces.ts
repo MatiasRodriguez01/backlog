@@ -17,7 +17,7 @@ export interface IProyecto {
 
 export interface ITarea {
     id?:string
-    idProyecto: string | null
+    idProyecto?: string
     titulo:string
     estado: string
     descripcion: string

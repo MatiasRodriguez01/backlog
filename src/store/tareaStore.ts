@@ -5,7 +5,7 @@ interface ITareaStore {
     tareas: ITarea[],
     tareasPorProyecto: ITarea[],
     tareaActiva: ITarea | null,
-    setTareaActiva: (tarea: ITarea) => void,
+    setTareaActiva: (tarea: ITarea | null) => void,
     setTareas: (arrayTareas: ITarea[]) => void,
     setTareasPorProyecto: (proyectoActivo: IProyecto) => void,
     setAgregarTarea: (nuevaTarea: ITarea) => void;

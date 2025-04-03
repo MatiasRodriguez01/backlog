@@ -1,6 +1,6 @@
 import { tareaStore } from '../store/tareaStore'
 import { useShallow } from 'zustand/shallow'
-import { getAllTareasController } from '../https/tareas/tareasList'
+import { getAllTareaPorProyecto } from '../https/tareas/tareasList'
 import { IProyecto, ITarea } from '../types/IInterfaces'
 import { createTareaController, deleteTareaController, updateTareaController } from '../https/tareas/tareaController'
 import Swal from 'sweetalert2'
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 const useTareas = () => {
 
     const {
+        tareas,
         tareasPorProyecto,
         setTareas,
         setTareasPorProyecto,
@@ -26,9 +27,10 @@ const useTareas = () => {
             setEliminarTarea: state.setEliminarTarea
         })))
 
-    const getTareas = async () => {
+    const getTareas = async (proyecto: IProyecto) => {
         try {
-            const data = await getAllTareasController();
+            const data = await getAllTareaPorProyecto(proyecto.id!);
+            
             if (data) setTareas(data)
         } catch (err) {
             console.error("error al mostrar las tareas: ", err)
@@ -37,7 +39,9 @@ const useTareas = () => {
 
     const getTareasPorProyecto = async (proyecto: IProyecto) => {
         try {
-            if (proyecto) setTareasPorProyecto(proyecto)
+            if (proyecto) {
+                setTareasPorProyecto(proyecto)
+            }
         } catch (err) {
             console.error("error al mostrar las tareas: ", err)
         }
@@ -93,6 +97,7 @@ const useTareas = () => {
     }
 
     return {
+        tareas,
         tareasPorProyecto,
         getTareas,
         getTareasPorProyecto,

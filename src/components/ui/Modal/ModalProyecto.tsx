@@ -28,17 +28,12 @@ export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {
 
   const [formValues, setFormValues] = useState<IProyecto>(initialState);
 
-  useEffect(() => {
-    if (proyectoActivo) setFormValues(proyectoActivo);
-  }, []);
-
-
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-
+    
     setFormValues((prev) => ({ ...prev, [`${name}`]: value }));
   };
-
+  
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (proyectoActivo) {
@@ -50,6 +45,10 @@ export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {
     handleCloseModal()
   }
 
+  useEffect(() => {
+    if (proyectoActivo) setFormValues(proyectoActivo);
+  }, []);
+  
   return (
     <div className={styles.containerPrincipalModal}>
       <div className={styles.contentPopUp}>
@@ -92,7 +91,7 @@ export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {
           <div className={styles.buttonCard}>
             <button className={styles.buttonCancel} onClick={handleCloseModal}>Cancelar</button>
             <button className={styles.buttonSubmit} type="submit">
-              {proyectoActivo ? "Editar sprint" : "Crear sprint"}
+              {proyectoActivo ? "Editar proyecto" : "Crear proyecto"}
             </button>
           </div>
         </form>
