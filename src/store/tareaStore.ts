@@ -1,13 +1,11 @@
 import { create } from "zustand";
-import { IProyecto, ITarea } from "../types/IInterfaces";
+import { ITarea } from "../types/IInterfaces";
 
 interface ITareaStore {
     tareas: ITarea[],
-    tareasPorProyecto: ITarea[],
     tareaActiva: ITarea | null,
     setTareaActiva: (tarea: ITarea | null) => void,
     setTareas: (arrayTareas: ITarea[]) => void,
-    setTareasPorProyecto: (proyectoActivo: IProyecto) => void,
     setAgregarTarea: (nuevaTarea: ITarea) => void;
     setEditarTarea: (tareaEditada: ITarea) => void;
     setEliminarTarea: (idTarea: string) => void;
@@ -15,7 +13,6 @@ interface ITareaStore {
 
 export const tareaStore = create<ITareaStore>((set)=>({
     tareas: [],
-    tareasPorProyecto: [],
     tareaActiva: null,
     setTareaActiva: (tarea) => set(() => ({
         tareaActiva: tarea
@@ -23,25 +20,20 @@ export const tareaStore = create<ITareaStore>((set)=>({
     setTareas: (arrayTareas: ITarea[]) => set(() => ({
         tareas: arrayTareas 
     })),
-    setTareasPorProyecto: (proyectoActivo: IProyecto) => set(() => {
-        const tareas_nuevas = proyectoActivo.tareas?.filter((tarea) => (tarea?.idProyecto === proyectoActivo?.id));
-        return { tareasPorProyecto: tareas_nuevas }
-    
-    }),
     setAgregarTarea : (nuevaTarea) => set((state) => ({
-        tareas: [...state.tareasPorProyecto, nuevaTarea]
+        tareas: [...state.tareas, nuevaTarea]
     })),
     setEditarTarea: (tareaEditada) => set((state) => {
-        const result = state.tareasPorProyecto.map((tarea) => 
+        const result = state.tareas.map((tarea) => 
             tarea.id === tareaEditada.id ? { ...tarea, tareaEditada } : tarea
         );
-        return { tareasPorProyecto: result }
+        return { tareas: result }
     }), 
     setEliminarTarea: (idTarea) => set((state) => {
-        const result = state.tareasPorProyecto.filter((tarea) => 
+        const result = state.tareas.filter((tarea) => 
             tarea.id !== idTarea 
         );
-        return { tareasPorProyecto: result }
+        return { tareas: result }
     })
 }
 ))

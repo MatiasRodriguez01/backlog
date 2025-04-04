@@ -14,14 +14,15 @@ const Sprint: FC<ISprinta> = ({ proyecto, handleOpenModalEdit }) => {
 
     const { eliminarProyecto } = useProyecto();
 
-    const setProyectotActivo = proyectoStrore((state) => state.setProyectotActivo);
+    const setProyectoActivo = proyectoStrore((state) => state.setProyectoActivo);
 
     const activo = () => {
-        setProyectotActivo(null)
-        setProyectotActivo(proyecto)
+        setProyectoActivo(null)
+        setProyectoActivo(proyecto)
     }
 
     const [openModalView, setOpenModalView] = useState<boolean>(false)
+
 
     return (
         <>
