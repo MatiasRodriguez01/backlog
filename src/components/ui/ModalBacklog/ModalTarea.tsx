@@ -36,7 +36,7 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
     )
     // const setTareaActva = backlogStore((state) => (state.setTareaActiva))
 
-    const { putEditarTarea, postCrearTarea } = useBacklog()
+    const { editarTarea, crearTarea } = useBacklog()
 
     const [formValues, setFormValues] = useState<ITarea>(initialState);
 
@@ -49,9 +49,9 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
         if (tareaActiva) {
-            putEditarTarea(formValues)
+            editarTarea(formValues)
         } else {
-            postCrearTarea({ ...formValues, id: new Date().toISOString(), idProyecto: idValue })
+            crearTarea({ ...formValues, id: new Date().toISOString(), idProyecto: idValue })
         }
         setTareaActiva(null)
         handleCloseModal()
@@ -101,7 +101,7 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
                             value={formValues.fechaLimite}
                             required />
                     </div>
-                    <div className={styles.botones}>
+                    <div className={styles.buttonCard}>
                         <button className={styles.buttonCancel} onClick={handleCloseModal}>Cancelar</button>
                         <button className={styles.buttonSubmit} type="submit">
                             {tareaActiva ? "Editar tarea" : "Crear tarea"}

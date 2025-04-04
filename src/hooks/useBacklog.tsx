@@ -31,7 +31,7 @@ const useBacklog = () => {
         }
     }
 
-    const postCrearTarea = async (nuevaTarea: ITarea) => {
+    const crearTarea = async (nuevaTarea: ITarea) => {
         setAgregarTarea(nuevaTarea);
         try {
             await createTareaBacklogController(nuevaTarea);
@@ -42,7 +42,7 @@ const useBacklog = () => {
         }
     }
 
-    const putEditarTarea = async (tareaActualizada: ITarea) => {
+    const editarTarea = async (tareaActualizada: ITarea) => {
         const estadoPrevio = tareas.find((tarea) =>
             tarea.id === tareaActualizada.id
         );
@@ -83,8 +83,8 @@ const useBacklog = () => {
     return {
         tareas,
         getTareas,
-        postCrearTarea,
-        putEditarTarea,
+        crearTarea,
+        editarTarea,
         deleteTarea
     }
 }

@@ -47,7 +47,7 @@ const useTareas = () => {
         }
     }
 
-    const postCrearTarea = async (nuevaTarea: ITarea) => {
+    const crearTarea = async (nuevaTarea: ITarea) => {
         setAgregarTarea(nuevaTarea);
         try {
             await createTareaController(nuevaTarea);
@@ -58,7 +58,7 @@ const useTareas = () => {
         }
     }
 
-    const putEditarTarea = async (tareaActualizada: ITarea) => {
+    const editarTarea = async (tareaActualizada: ITarea) => {
         const estadoPrevio = tareasPorProyecto.find((tarea) =>
             tarea.id === tareaActualizada.id
         );
@@ -101,8 +101,8 @@ const useTareas = () => {
         tareasPorProyecto,
         getTareas,
         getTareasPorProyecto,
-        postCrearTarea,
-        putEditarTarea,
+        crearTarea,
+        editarTarea,
         deleteTarea
     }
 }

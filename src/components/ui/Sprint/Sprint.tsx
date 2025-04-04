@@ -5,12 +5,12 @@ import { useProyecto } from '../../../hooks/useProyecto';
 import { CardProyect } from '../CardProyect/CardProyect';
 import { proyectoStrore } from '../../../store/proyectoStore';
 
-type IString = {
+type ISprinta = {
     proyecto: IProyecto;
     handleOpenModalEdit: (proyecto: IProyecto) => void;
 }
 
-const Sprint: FC<IString> = ({ proyecto, handleOpenModalEdit }) => {
+const Sprint: FC<ISprinta> = ({ proyecto, handleOpenModalEdit }) => {
 
     const { eliminarProyecto } = useProyecto();
 
@@ -55,7 +55,7 @@ const Sprint: FC<IString> = ({ proyecto, handleOpenModalEdit }) => {
             {
                 openModalView &&
                 <CardProyect
-                    sprint={proyecto}
+                    sprintt={proyecto}
                     handleCloseModal={() => setOpenModalView(false)}
                 />
             }

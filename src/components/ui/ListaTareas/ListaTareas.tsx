@@ -4,22 +4,31 @@ import Tarea from "../Tarea/Tarea";
 import { proyectoStrore } from "../../../store/proyectoStore";
 import useTareas from "../../../hooks/useTareas";
 import ModalTarea from "../ModalTarea/ModalTarea";
+import { tareaStore } from "../../../store/tareaStore";
+import { ITarea } from "../../../types/IInterfaces";
 
 
 const ListaTareas = () => {
+  const setTareaActiva = tareaStore((state) => state.setTareaActiva);
 
   const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
 
   const { getTareas, getTareasPorProyecto, tareas } = useTareas();
 
-  const [openPopUp, setOpenPopUp] = useState<boolean>(false);
+  const [openModalTarea, setOpenModalTarea] = useState(false)
+
 
   useEffect(() => {
-    getTareas(proyectoActivo!)
-    getTareasPorProyecto(proyectoActivo!)
-
+    if (!proyectoActivo) return; // Evita que el código se ejecute si no hay proyecto activo
+    getTareas(proyectoActivo);
+    getTareasPorProyecto(proyectoActivo);
   }, [proyectoActivo]);
 
+  const handleOpenModalEdit = (tarea: ITarea) => {
+      setTareaActiva(null);
+      setTareaActiva(tarea);
+      setOpenModalTarea(true);
+    };
 
   return (
     <>
@@ -31,7 +40,7 @@ const ListaTareas = () => {
           <h2>Tareas en la sprint: </h2>
           <button
             className={styles.containerButton}
-            onClick={() => setOpenPopUp(true)}
+            onClick={() => setOpenModalTarea(true)}
           >
             Crear Tarea
             <span className="material-symbols-outlined">playlist_add</span>
@@ -47,10 +56,14 @@ const ListaTareas = () => {
                 tareas
                   .filter((tarea) => (tarea.estado === "pendiente"))
                   .map((tarea, index) => (
-                    <Tarea key={index} tarea={tarea} />
+                    <Tarea key={index} handleOpenModalEdit={handleOpenModalEdit} tarea={tarea} />
                   ))
+                  
               ) : (
+                <>
+                <hr style={{ width: '80%', height: '0.1vh', backgroundColor: 'grey' }} />
                 <p>no hay tareas</p>
+                </>
               )
             }
           </div>
@@ -63,10 +76,13 @@ const ListaTareas = () => {
                 tareas
                   .filter((tarea) => (tarea.estado === "en_proceso"))
                   .map((tarea, index) => (
-                    <Tarea key={index} tarea={tarea} />
+                    <Tarea key={index} handleOpenModalEdit={handleOpenModalEdit} tarea={tarea} />
                   ))
               ) : (
+                <>
+                <hr style={{ width: '80%', height: '0.1vh', backgroundColor: 'grey' }} />
                 <p>no hay tareas</p>
+                </>
               )
             }
           </div>
@@ -79,11 +95,14 @@ const ListaTareas = () => {
                 tareas
                   .filter((tarea) => (tarea.estado === "completado"))
                   .map((tarea, index) => (
-                    <Tarea key={index} tarea={tarea} />
+                    <Tarea key={index} handleOpenModalEdit={handleOpenModalEdit} tarea={tarea} />
 
                   ))
               ) : (
+                <>
+                <hr style={{ width: '80%', height: '0.1vh', backgroundColor: 'grey' }} />
                 <p>no hay tareas</p>
+                </>
               )
             }
           </div>
@@ -91,10 +110,10 @@ const ListaTareas = () => {
       </div>
 
       {
-        openPopUp &&
+        openModalTarea &&
         <ModalTarea
           idValue={proyectoActivo?.id}
-          handleCloseModal={() => setOpenPopUp(false)} />
+          handleCloseModal={() => setOpenModalTarea(false)} />
       }
     </>
   );

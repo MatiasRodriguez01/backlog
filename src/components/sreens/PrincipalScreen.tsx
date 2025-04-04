@@ -3,7 +3,6 @@ import ListaTareas from "../ui/ListaTareas/ListaTareas"
 import ListaProyecto from "../ui/ListaProyectos/ListaProyecto"
 import { useState } from "react";
 import Backlog from "../ui/BacklogPage/Backlog";
-
 import styles from './PrincipalScreen.module.css'
 
 const PrincipalScreen = () => {
@@ -14,7 +13,7 @@ const PrincipalScreen = () => {
             <div className={styles.containerPage}>
                 <ListaProyecto setIsBacklogView={setIsBacklogView} isBacklogView={isBacklogView} />
                 {
-                    isBacklogView ? <Backlog /> : <ListaTareas />
+                    isBacklogView ?  <ListaTareas /> : <Backlog />
                 }
             </div>
         </>

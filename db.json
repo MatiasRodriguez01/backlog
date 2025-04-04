@@ -28,6 +28,27 @@
         "estado": "pendiente",
         "descripcion": "wzxrdtcfvyghun",
         "fechaLimite": "2025-04-29"
+      },
+      {
+        "id": "2025-04-04T00:21:59.357Z",
+        "titulo": "hola",
+        "estado": "pendiente",
+        "descripcion": "hola2",
+        "fechaLimite": "1111-11-11"
+      },
+      {
+        "id": "2025-04-04T03:40:05.569Z",
+        "titulo": "backlog",
+        "estado": "pendiente",
+        "descripcion": "backlo1",
+        "fechaLimite": "1111-11-11"
+      },
+      {
+        "id": "2025-04-04T04:33:32.724Z",
+        "titulo": "aaaaa",
+        "estado": "completado",
+        "descripcion": "ssss",
+        "fechaLimite": "5555-05-05"
       }
     ]
   },
@@ -36,7 +57,7 @@
       {
         "id": "1",
         "nombre": "wexrctvy",
-        "descripcion": "exrctvyg",
+        "descripcion": "exrctvygg",
         "fechaInicio": "2025-03-20",
         "fechaCierre": "2025-03-20",
         "tareas": [
