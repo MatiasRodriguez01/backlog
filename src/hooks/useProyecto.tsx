@@ -9,7 +9,9 @@ export const useProyecto = () => {
 
   const {
     proyectos,
+    proyectoActivo,
     setArrayProyectos,
+    setProyectoActivo,
     setAgregarProyecto,
     setEditarProyecto,
     setEliminarProyecto
@@ -17,7 +19,7 @@ export const useProyecto = () => {
     useShallow((state) => ({
       proyectos: state.proyectos,
       proyectoActivo: state.proyectoActivo,
-      setProyectotActivo: state.proyectoActivo,
+      setProyectoActivo: state.proyectoActivo,
       setArrayProyectos: state.setArrayProyectos,
       setAgregarProyecto: state.setAgregarProyecto,
       setEditarProyecto: state.setEditarProyecto,
@@ -89,6 +91,8 @@ export const useProyecto = () => {
     editarProyecto,
     eliminarProyecto,
     proyectos,
+    proyectoActivo,
+    setProyectoActivo
   }
 
 }

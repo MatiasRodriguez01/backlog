@@ -13,22 +13,16 @@ interface ListaProyectoProps{
 }
 const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}) => {
 
-  const setProyectotActivo = proyectoStrore((state) => state.setProyectotActivo);
-  const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
+  const setProyectoActivo = proyectoStrore((state) => state.setProyectoActivo)
+  const {getProyectos, proyectos } = useProyecto();
 
-  const {getProyectos, proyectos} = useProyecto();
-
-  useEffect(()=>{
-    getProyectos()
-    console.log("proyecto activo: ", proyectoActivo)
-  },[proyectoActivo]);
-
+  
   const [openModalSprint, setOpenModalSprint] = useState(false)
   // const sprints = sprintStore((state)=>state.sprints)
 
   const handleOpenModalEdit = (tarea: IProyecto) => {
-    setProyectotActivo(null);
-    setProyectotActivo(tarea);
+    setProyectoActivo(null);
+    setProyectoActivo(tarea);
     setOpenModalSprint(true);
   };
 
@@ -36,6 +30,14 @@ const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}
     setOpenModalSprint(false);
   };
 
+  useEffect(() => {
+    const getAllProyects = async () => {
+      getProyectos()
+    }
+
+    getAllProyects()
+  },[]);
+  
   return (
     <>
       <div className={styles.container}>
@@ -52,7 +54,7 @@ const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}
               <button
               onClick={()=>{
                 setOpenModalSprint(true)
-                setProyectotActivo(null)
+                setProyectoActivo(null)
               }}
               >
                 <span className="material-symbols-outlined">playlist_add</span>

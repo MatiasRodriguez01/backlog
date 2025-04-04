@@ -4,7 +4,7 @@ import { IProyecto } from "../types/IInterfaces";
 interface IProyectoStore {
     proyectos: IProyecto[];
     proyectoActivo: IProyecto | null;
-    setProyectotActivo: (proyectoActivo: IProyecto | null) => void;
+    setProyectoActivo: (proyectoActivo: IProyecto | null) => void;
     setArrayProyectos: (arrayDeSprint: IProyecto[]) => void;
     setAgregarProyecto: (nuevoSprint: IProyecto) => void;
     setEditarProyecto: (sprintActualizado: IProyecto) => void;
@@ -17,7 +17,7 @@ export const proyectoStrore = create<IProyectoStore>((set) => ({
     proyectoActivo: null,  // proyecto activo
 
     // setear un proyecto activo
-    setProyectotActivo: (nuevoProyectoActivo) => set(() => ({
+    setProyectoActivo: (nuevoProyectoActivo) => set(() => ({
         proyectoActivo: nuevoProyectoActivo
     })),
 

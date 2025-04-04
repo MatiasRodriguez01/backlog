@@ -1,7 +1,7 @@
 import { tareaStore } from '../store/tareaStore'
 import { useShallow } from 'zustand/shallow'
 import { getAllTareaPorProyecto } from '../https/tareas/tareasList'
-import { IProyecto, ITarea } from '../types/IInterfaces'
+import { ITarea } from '../types/IInterfaces'
 import { createTareaController, deleteTareaController, updateTareaController } from '../https/tareas/tareaController'
 import Swal from 'sweetalert2'
 
@@ -9,9 +9,9 @@ const useTareas = () => {
 
     const {
         tareas,
-        tareasPorProyecto,
+        tareaActiva,
         setTareas,
-        setTareasPorProyecto,
+        setTareaActiva,
         setAgregarTarea,
         setEditarTarea,
         setEliminarTarea
@@ -19,52 +19,49 @@ const useTareas = () => {
     } = tareaStore(
         useShallow((state) => ({
             tareas: state.tareas,
-            tareasPorProyecto: state.tareasPorProyecto,
+            tareaActiva: state.tareaActiva,
             setTareas: state.setTareas,
-            setTareasPorProyecto: state.setTareasPorProyecto,
+            setTareaActiva: state.setTareaActiva,
             setAgregarTarea: state.setAgregarTarea,
             setEditarTarea: state.setEditarTarea,
             setEliminarTarea: state.setEliminarTarea
         })))
 
-    const getTareas = async (proyecto: IProyecto) => {
+    const getTareas = async (idProyecto: string) => {
         try {
-            const data = await getAllTareaPorProyecto(proyecto.id!);
-            
+            const data = await getAllTareaPorProyecto(idProyecto);
+            console.log(data)
             if (data) setTareas(data)
         } catch (err) {
             console.error("error al mostrar las tareas: ", err)
         }
     }
 
-    const getTareasPorProyecto = async (proyecto: IProyecto) => {
-        try {
-            if (proyecto) {
-                setTareasPorProyecto(proyecto)
-            }
-        } catch (err) {
-            console.error("error al mostrar las tareas: ", err)
-        }
-    }
-
-    const postCrearTarea = async (nuevaTarea: ITarea) => {
+    const postCrearTarea = async (idProyecto: string, nuevaTarea: ITarea) => {
         setAgregarTarea(nuevaTarea);
         try {
-            await createTareaController(nuevaTarea);
-            Swal.fire("Exito", "Tarea creada correctamente", "success")
+
+            const result = await createTareaController(idProyecto, nuevaTarea);
+            console.log(result)
+            if (result) {
+                Swal.fire("Exito", "Tarea creada correctamente", "success")
+            } else {
+                Swal.fire("Error", "Tarea creada correctamente", "error")
+
+            }
         } catch (err) {
             setEliminarTarea(nuevaTarea.id!)
             console.error("error al agregar tareas: ", err)
         }
     }
 
-    const putEditarTarea = async (tareaActualizada: ITarea) => {
-        const estadoPrevio = tareasPorProyecto.find((tarea) =>
+    const putEditarTarea = async (idProyecto: string, tareaActualizada: ITarea) => {
+        const estadoPrevio = tareas.find((tarea) =>
             tarea.id === tareaActualizada.id
         );
         setEditarTarea(tareaActualizada);
         try {
-            await updateTareaController(tareaActualizada);
+            await updateTareaController(idProyecto, tareaActualizada);
             Swal.fire("Exito", "Tarea actualizada correctamente", "success")
         } catch (err) {
             setEditarTarea(estadoPrevio!)
@@ -72,8 +69,8 @@ const useTareas = () => {
         }
     }
 
-    const deleteTarea = async (idTarea: string) => {
-        const estadoPrevio = tareasPorProyecto.find((tarea) => tarea.id === idTarea);
+    const deleteTarea = async (idProyecto: string, idTarea: string) => {
+        const estadoPrevio = tareas.find((tarea) => tarea.id === idTarea);
 
         const confirm = await Swal.fire({
             title: "¿Estas seguro?",
@@ -87,7 +84,7 @@ const useTareas = () => {
         if (!confirm.isConfirmed) return;
         setEliminarTarea(idTarea)
         try {
-            await deleteTareaController(idTarea)
+            await deleteTareaController(idProyecto, idTarea)
             Swal.fire("Eliminado", "La tarea se elimino correctamente", "success")
         } catch (error) {
             if (estadoPrevio) setAgregarTarea(estadoPrevio)
@@ -98,9 +95,9 @@ const useTareas = () => {
 
     return {
         tareas,
-        tareasPorProyecto,
+        tareaActiva,
         getTareas,
-        getTareasPorProyecto,
+        setTareaActiva,
         postCrearTarea,
         putEditarTarea,
         deleteTarea

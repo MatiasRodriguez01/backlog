@@ -28,6 +28,62 @@
         "estado": "pendiente",
         "descripcion": "wzxrdtcfvyghun",
         "fechaLimite": "2025-04-29"
+      },
+      {
+        "idProyecto": "1",
+        "titulo": "hola 12a",
+        "estado": "completado",
+        "descripcion": "dsadasd",
+        "fechaLimite": "2025-04-23"
+      },
+      {
+        "idProyecto": "1",
+        "titulo": "hola 12a",
+        "estado": "completado",
+        "descripcion": "dsadasd",
+        "fechaLimite": "2025-04-23"
+      },
+      {
+        "idProyecto": "1",
+        "titulo": "hola 12a",
+        "estado": "completado",
+        "descripcion": "dsadasd",
+        "fechaLimite": "2025-04-23"
+      },
+      {
+        "idProyecto": "2",
+        "titulo": "Tarea 3",
+        "descripcion": "Descripcion tarea backlog",
+        "estado": "completado",
+        "fechaLimite": "2025-03-05"
+      },
+      {
+        "idProyecto": "1",
+        "titulo": "tarea 5",
+        "estado": "en_proceso",
+        "descripcion": "tcvyg",
+        "fechaLimite": "2025-04-16"
+      },
+      {
+        "idProyecto": "1",
+        "titulo": "tarea 5",
+        "estado": "en_proceso",
+        "descripcion": "tcvyg",
+        "fechaLimite": "2025-04-16"
+      },
+      {
+        "idProyecto": "2",
+        "titulo": "Tarea 3",
+        "descripcion": "Descripcion tarea backlog",
+        "estado": "completado",
+        "fechaLimite": "2025-03-05"
+      },
+      {
+        "idProyecto": "2",
+        "titulo": "Tarea 3",
+        "descripcion": "Descripcion tarea backlog",
+        "estado": "completado",
+        "fechaLimite": "2025-03-05"
       }
     ]
   },
@@ -41,20 +97,12 @@
         "fechaCierre": "2025-03-20",
         "tareas": [
           {
-            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+            "id": "2025-04-04T03:40:19.703Z",
             "idProyecto": "1",
-            "titulo": "Tarea 1",
-            "descripcion": "Descripcion tarea backlog",
-            "estado": "pendiente",
-            "fechaLimite": "2025-03-05"
-          },
-          {
-            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-            "idProyecto": "1",
-            "titulo": "Tarea 2",
-            "descripcion": "Descripcion tarea backlog",
-            "estado": "completado",
-            "fechaLimite": "2025-03-06"
+            "titulo": "tarea 5",
+            "estado": "en_proceso",
+            "descripcion": "tcvyg",
+            "fechaLimite": "2025-04-16"
           }
         ]
       },
@@ -64,59 +112,8 @@
         "descripcion": "esta es una decripcion",
         "fechaInicio": "2025-03-26",
         "fechaCierre": "2025-03-28",
-        "tareas": [
-          {
-            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-            "idProyecto": "2",
-            "titulo": "Tarea 3",
-            "descripcion": "Descripcion tarea backlog",
-            "estado": "pendiente",
-            "fechaLimite": "2025-03-05"
-          },
-          {
-            "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-            "idProyecto": "2",
-            "titulo": "Tarea 4",
-            "descripcion": "Descripcion tarea backlog",
-            "estado": "completado",
-            "fechaLimite": "2025-03-06"
-          }
-        ]
+        "tareas": []
       }
     ]
-  },
-  "tareas": [
-    {
-      "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-      "idProyecto": "1",
-      "titulo": "Tarea 1",
-      "descripcion": "Descripcion tarea backlog",
-      "estado": "pendiente",
-      "fechaLimite": "2025-03-05"
-    },
-    {
-      "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-      "idProyecto": "1",
-      "titulo": "Tarea 2",
-      "descripcion": "Descripcion tarea backlog",
-      "estado": "completado",
-      "fechaLimite": "2025-03-06"
-    },
-    {
-      "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-      "idProyecto": "2",
-      "titulo": "Tarea 3",
-      "descripcion": "Descripcion tarea backlog",
-      "estado": "pendiente",
-      "fechaLimite": "2025-03-05"
-    },
-    {
-      "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-      "idProyecto": "2",
-      "titulo": "Tarea 4",
-      "descripcion": "Descripcion tarea backlog",
-      "estado": "completado",
-      "fechaLimite": "2025-03-06"
-    }
-  ]
+  }
 }

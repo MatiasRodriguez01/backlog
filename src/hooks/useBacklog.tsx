@@ -1,28 +1,33 @@
-import { tareaStore } from '../store/tareaStore'
 import { useShallow } from 'zustand/shallow'
 import { ITarea } from '../types/IInterfaces'
 import { createTareaBacklogController, deleteTareaBacklogController, getAllTareasBacklogController, updateTareaBacklogController } from '../https/backlog/backlogController'
 import Swal from 'sweetalert2'
+import backlogStore from '../store/backlogStore'
 
 const useBacklog = () => {
-
+    
     const {
         tareas,
+        tareaActiva,
         setTareas,
+        setTareaActiva,
         setAgregarTarea,
         setEditarTarea,
         setEliminarTarea
-    } = tareaStore(
+    } = backlogStore(
         useShallow((state) => ({
             tareas: state.tareas,
+            tareaActiva: state.tareaActiva,
             setTareas: state.setTareas,
+            setTareaActiva: state.setTareaActiva,
             setAgregarTarea: state.setAgregarTarea,
             setEditarTarea: state.setEditarTarea,
             setEliminarTarea: state.setEliminarTarea
         }))
     )
 
-    const getTareas = async () => {
+
+    const getTareasBacklog = async () => {
         try {
             const data = await getAllTareasBacklogController();
             if (data) setTareas(data)
@@ -31,7 +36,7 @@ const useBacklog = () => {
         }
     }
 
-    const postCrearTarea = async (nuevaTarea: ITarea) => {
+    const postCrearTareaBacklog = async (nuevaTarea: ITarea) => {
         setAgregarTarea(nuevaTarea);
         try {
             await createTareaBacklogController(nuevaTarea);
@@ -42,7 +47,7 @@ const useBacklog = () => {
         }
     }
 
-    const putEditarTarea = async (tareaActualizada: ITarea) => {
+    const putEditarTareaBacklog = async (tareaActualizada: ITarea) => {
         const estadoPrevio = tareas.find((tarea) =>
             tarea.id === tareaActualizada.id
         );
@@ -56,7 +61,7 @@ const useBacklog = () => {
         }
     }
 
-    const deleteTarea = async (idTarea: string) => {
+    const deleteTareaBacklog = async (idTarea: string) => {
         const estadoPrevio = tareas.find((tarea) => tarea.id === idTarea);
 
         const confirm = await Swal.fire({
@@ -82,10 +87,12 @@ const useBacklog = () => {
 
     return {
         tareas,
-        getTareas,
-        postCrearTarea,
-        putEditarTarea,
-        deleteTarea
+        tareaActiva,
+        getTareasBacklog,
+        setTareaActiva,
+        postCrearTareaBacklog,
+        putEditarTareaBacklog,
+        deleteTareaBacklog
     }
 }
 

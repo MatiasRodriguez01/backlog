@@ -5,21 +5,54 @@ import { proyectoStrore } from "../../../store/proyectoStore";
 import useTareas from "../../../hooks/useTareas";
 import ModalTarea from "../ModalTarea/ModalTarea";
 
+import { setEstadoLista } from "../../../hooks/useTareaEstado";
+import { ITarea } from "../../../types/IInterfaces";
 
 const ListaTareas = () => {
 
   const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
 
-  const { getTareas, getTareasPorProyecto, tareas } = useTareas();
+
+  const { getTareas, tareas, setTareaActiva } = useTareas();
 
   const [openPopUp, setOpenPopUp] = useState<boolean>(false);
 
+  const [tareasPendientes, setTareasPendientes] = useState<ITarea[]>([])
+  const [tareasEnProceso, setTareasEnProceso] = useState<ITarea[]>([])
+  const [tareasCompletadas, setTareasCompletadas] = useState<ITarea[]>([])
+
+  const handleEditTarea = (tarea: ITarea) => {
+    setTareaActiva(null);
+    setTareaActiva(tarea);
+    setOpenPopUp(true);
+  };
+
+  const handleClickAddTarea = () => {
+    setTareaActiva(null) 
+    setOpenPopUp(true)
+  }
+
   useEffect(() => {
-    getTareas(proyectoActivo!)
-    getTareasPorProyecto(proyectoActivo!)
-
-  }, [proyectoActivo]);
-
+    const getAllTareas = async () => {
+      if (proyectoActivo) await getTareas(proyectoActivo.id!);
+      console.log("Tareas actualizadas");
+    };
+  
+    getAllTareas();
+  }, [proyectoActivo]); // SOLO se dispara cuando cambia el proyecto
+  
+  useEffect(() => {
+    if (tareas.length > 0) {
+      setTareasPendientes(setEstadoLista(tareas, "pendiente"));
+      setTareasEnProceso(setEstadoLista(tareas, "en_proceso"));
+      setTareasCompletadas(setEstadoLista(tareas, "completado"));
+    } else {
+      setTareasPendientes([]);
+      setTareasEnProceso([]);
+      setTareasCompletadas([]);
+    }
+  }, [tareas]); // SOLO reorganiza las tareas si cambian
+  
 
   return (
     <>
@@ -31,7 +64,7 @@ const ListaTareas = () => {
           <h2>Tareas en la sprint: </h2>
           <button
             className={styles.containerButton}
-            onClick={() => setOpenPopUp(true)}
+            onClick={handleClickAddTarea}
           >
             Crear Tarea
             <span className="material-symbols-outlined">playlist_add</span>
@@ -44,11 +77,9 @@ const ListaTareas = () => {
             </div>
             {
               proyectoActivo && (tareas.length > 0) ? (
-                tareas
-                  .filter((tarea) => (tarea.estado === "pendiente"))
-                  .map((tarea, index) => (
-                    <Tarea key={index} tarea={tarea} />
-                  ))
+                tareasPendientes.map((tarea, index) => (
+                  <Tarea key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
+                ))
               ) : (
                 <p>no hay tareas</p>
               )
@@ -60,11 +91,9 @@ const ListaTareas = () => {
             </div>
             {
               proyectoActivo && (tareas.length > 0) ? (
-                tareas
-                  .filter((tarea) => (tarea.estado === "en_proceso"))
-                  .map((tarea, index) => (
-                    <Tarea key={index} tarea={tarea} />
-                  ))
+                tareasEnProceso.map((tarea, index) => (
+                  <Tarea key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
+                ))
               ) : (
                 <p>no hay tareas</p>
               )
@@ -76,12 +105,10 @@ const ListaTareas = () => {
             </div>
             {
               proyectoActivo && (tareas.length > 0) ? (
-                tareas
-                  .filter((tarea) => (tarea.estado === "completado"))
-                  .map((tarea, index) => (
-                    <Tarea key={index} tarea={tarea} />
+                tareasCompletadas.map((tarea, index) => (
+                  <Tarea key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
 
-                  ))
+                ))
               ) : (
                 <p>no hay tareas</p>
               )
