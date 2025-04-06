@@ -1,19 +1,19 @@
 import axios from "axios";
-import { ITarea } from "../../types/IInterfaces";
+import { ITareaBacklog } from "../../types/IInterfaces";
 import { API_BACKLOG } from "../../utils/constantes";
 import { putBacklogListController } from "./backlogList";
 
 export const getAllTareasBacklogController = async () => {
     try {
-        const response = await axios.get<{ tareas: ITarea[] }>(API_BACKLOG);
-        const result: ITarea[] = (response.data.tareas)
+        const response = await axios.get<{ tareas: ITareaBacklog[] }>(API_BACKLOG);
+        const result: ITareaBacklog[] = (response.data.tareas)
         return result
     } catch (err) {
         console.error("algo salio mal en getAllTareasBacklogController: ", err)
     }
 }
 
-export const createTareaBacklogController = async (nuevaTarea: ITarea) => {
+export const createTareaBacklogController = async (nuevaTarea: ITareaBacklog) => {
     try {
         const tareasBacklog = await getAllTareasBacklogController();
         if (tareasBacklog) {
@@ -29,7 +29,7 @@ export const createTareaBacklogController = async (nuevaTarea: ITarea) => {
     }
 }
 
-export const updateTareaBacklogController = async (tareaActualizada: ITarea) => {
+export const updateTareaBacklogController = async (tareaActualizada: ITareaBacklog) => {
     try {
         const tareasBacklog = await getAllTareasBacklogController();
         if (tareasBacklog) {

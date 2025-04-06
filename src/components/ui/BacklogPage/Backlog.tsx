@@ -1,26 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Backlog.module.css";
 import ModalTarea from "../ModalBacklog/ModalTarea";
 import backlogStore from "../../../store/backlogStore";
-import useTareas from "../../../hooks/useTareas";
-import Tarea from "../Tarea/Tarea";
-import { ITarea } from "../../../types/IInterfaces";
-import { tareaStore } from "../../../store/tareaStore";
+import { ITareaBacklog } from "../../../types/IInterfaces";
+import useBacklog from "../../../hooks/useBacklog";
+import { ListGroup } from "react-bootstrap";
+import TareaBacklog from "../TareaBacklog/TareaBacklog";
 
 const Backlog = () => {
   const setTareaActiva = backlogStore((state) => state.setTareaActiva);
 
-  const tareaAct = tareaStore((state) => state.tareaActiva);
+  const { getTareasBacklog, tareasBacklog } = useBacklog();
 
-  const { getTareas, getTareasPorProyecto, tareas } = useTareas();
+  const [openModalTarea, setOpenModalTarea] = useState<boolean>(false);
 
-  const [openModalTarea, setOpenModalTarea] = useState(false);
-
-  const handleOpenModalEdit = (tarea: ITarea) => {
+  const handleOpenModalEdit = (tarea: ITareaBacklog) => {
     setTareaActiva(null);
     setTareaActiva(tarea);
     setOpenModalTarea(true);
-  };
+  }; 
+
+  useEffect(() => {
+    const getAllTareasBacklog = async () => {
+
+      getTareasBacklog()
+      console.log("tarea en backlog.tsx: ", tareasBacklog)
+    }
+
+    getAllTareasBacklog()
+  }, [])
 
   return (
     <>
@@ -38,61 +46,32 @@ const Backlog = () => {
             <span className="material-symbols-outlined">playlist_add</span>
           </button>
         </div>
-      
-        <div className={styles.containerTareas}>
-          {tareaAct && tareas.length > 0 ? (
-            tareas
-              .filter((tarea) => tarea.estado === "pendiente")
-              .map((tarea, index) => (
-                <Tarea
-                  key={index}
-                  handleOpenModalEdit={handleOpenModalEdit}
-                  tarea={tarea}
-                />
-              ))
-          ) : (
-            <>
-              <p>no hay tareas</p>
-            </>
-          )}
 
-          {tareaAct && tareas.length > 0 ? (
-            tareas
-              .filter((tarea) => tarea.estado === "en_proceso")
-              .map((tarea, index) => (
-                <Tarea
-                  key={index}
-                  handleOpenModalEdit={handleOpenModalEdit}
-                  tarea={tarea}
-                />
-              ))
-          ) : (
-            <>
-              <p>no hay tareas</p>
-            </>
-          )}
+        <div className={styles.containerPrincipalTareas}>
+          <ListGroup className={styles.containerTareas}>
+            {
+              tareasBacklog.length > 0 ? (
+                tareasBacklog.map((tarea) => (
+                  <ListGroup.Item key={tarea.id!}>
+                      <TareaBacklog tarea={tarea} handleOpenModalEdit={handleOpenModalEdit} />
+                  </ListGroup.Item>
+                ))
+              ) : (
+                <>
+                  <p>no hay tareas</p>
+                </>
+              )
+            }
 
-          {tareaAct && tareas.length > 0 ? (
-            tareas
-              .filter((tarea) => tarea.estado === "completado")
-              .map((tarea, index) => (
-                <Tarea
-                  key={index}
-                  handleOpenModalEdit={handleOpenModalEdit}
-                  tarea={tarea}
-                />
-              ))
-          ) : (
-            <>
-              <p>no hay tareas</p>
-            </>
-          )}
+          </ListGroup>
+
         </div>
+
       </div>
 
       {openModalTarea && (
         <ModalTarea
-          idValue={undefined}
+          idValue={""}
           handleCloseModal={() => setOpenModalTarea(false)}
         />
       )}

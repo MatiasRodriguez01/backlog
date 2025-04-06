@@ -5,7 +5,7 @@ import { ITarea } from '../../../types/IInterfaces'
 import { tareaStore } from '../../../store/tareaStore';
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import useTareas from '../../../hooks/useTareas';
-import { proyectoStrore } from '../../../store/proyectoStore';
+// import { proyectoStrore } from '../../../store/proyectoStore';
 
 interface IModalTarea {
     idValue?: string;
@@ -26,10 +26,10 @@ const initialState: ITarea = {
 const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
 
     const tareaActva = tareaStore((state) => state.tareaActiva);
-    const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
+    // const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
     const setTareaActva = tareaStore((state) => (state.setTareaActiva))
 
-    const { editarTarea, crearTarea } = useTareas()
+    const { putEditarTarea, postCrearTarea } = useTareas()
 
     const [formValues, setFormValues] = useState<ITarea>(initialState);
 
@@ -41,19 +41,10 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
-<<<<<<< HEAD
         if (tareaActva) {
-            editarTarea(formValues)
+            putEditarTarea(idValue!, formValues)
         } else {
-            crearTarea({ ...formValues, id: new Date().toISOString(), idProyecto: idValue })
-=======
-        if (tareaActva && proyectoActivo) {
-            const id = proyectoActivo.id;
-            putEditarTarea(id!, formValues)
-        } else if (proyectoActivo){
-            const id = proyectoActivo.id;
-            postCrearTarea(id!, { ...formValues, id: new Date().toISOString(), idProyecto: idValue })
->>>>>>> fbbfee66312aee5dfe8c2aca29c63e6423584845
+            postCrearTarea(idValue!, { ...formValues, id: new Date().toISOString(), idProyecto: idValue })
         }
         setTareaActva(null)
         handleCloseModal()
@@ -61,6 +52,7 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
 
     useEffect(() => {
         if (tareaActva) setFormValues(tareaActva);
+        console.log("tareaActva: ", tareaActva)
     }, []);
 
     return (

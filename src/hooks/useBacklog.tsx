@@ -1,25 +1,24 @@
 import { useShallow } from 'zustand/shallow'
-import { ITarea } from '../types/IInterfaces'
+import { ITarea, ITareaBacklog } from '../types/IInterfaces'
 import { createTareaBacklogController, deleteTareaBacklogController, getAllTareasBacklogController, updateTareaBacklogController } from '../https/backlog/backlogController'
 import Swal from 'sweetalert2'
 import backlogStore from '../store/backlogStore'
+import useTareas from './useTareas'
 
 const useBacklog = () => {
     
     const {
-        tareas,
-        tareaActiva,
-        setTareas,
-        setTareaActiva,
+        tareasBacklog,
+        tareaBacklogActiva,
+        setTareasBacklog,
         setAgregarTarea,
         setEditarTarea,
         setEliminarTarea
     } = backlogStore(
         useShallow((state) => ({
-            tareas: state.tareas,
-            tareaActiva: state.tareaActiva,
-            setTareas: state.setTareas,
-            setTareaActiva: state.setTareaActiva,
+            tareasBacklog: state.tareasBacklog,
+            tareaBacklogActiva: state.tareaBacklogActiva,
+            setTareasBacklog: state.setTareasBacklog,
             setAgregarTarea: state.setAgregarTarea,
             setEditarTarea: state.setEditarTarea,
             setEliminarTarea: state.setEliminarTarea
@@ -30,17 +29,16 @@ const useBacklog = () => {
     const getTareasBacklog = async () => {
         try {
             const data = await getAllTareasBacklogController();
-            if (data) setTareas(data)
+            if (data) {
+                setTareasBacklog(data)
+                console.log(tareasBacklog)
+            }
         } catch (err) {
             console.error("error al mostrar las tareas del backlog: ", err)
         }
     }
 
-<<<<<<< HEAD
-    const crearTarea = async (nuevaTarea: ITarea) => {
-=======
-    const postCrearTareaBacklog = async (nuevaTarea: ITarea) => {
->>>>>>> fbbfee66312aee5dfe8c2aca29c63e6423584845
+    const postCrearTareaBacklog = async (nuevaTarea: ITareaBacklog) => {
         setAgregarTarea(nuevaTarea);
         try {
             await createTareaBacklogController(nuevaTarea);
@@ -51,12 +49,8 @@ const useBacklog = () => {
         }
     }
 
-<<<<<<< HEAD
-    const editarTarea = async (tareaActualizada: ITarea) => {
-=======
-    const putEditarTareaBacklog = async (tareaActualizada: ITarea) => {
->>>>>>> fbbfee66312aee5dfe8c2aca29c63e6423584845
-        const estadoPrevio = tareas.find((tarea) =>
+    const putEditarTareaBacklog = async (tareaActualizada: ITareaBacklog) => {
+        const estadoPrevio = tareasBacklog.find((tarea) =>
             tarea.id === tareaActualizada.id
         );
         setEditarTarea(tareaActualizada);
@@ -70,7 +64,7 @@ const useBacklog = () => {
     }
 
     const deleteTareaBacklog = async (idTarea: string) => {
-        const estadoPrevio = tareas.find((tarea) => tarea.id === idTarea);
+        const estadoPrevio = tareasBacklog.find((tarea) => tarea.id === idTarea);
 
         const confirm = await Swal.fire({
             title: "¿Estas seguro?",
@@ -92,22 +86,42 @@ const useBacklog = () => {
 
         }
     }
+    const crearTareaParaElBacklog = async (nuevaTarea: ITareaBacklog) => {
+        setAgregarTarea(nuevaTarea);
+        try {
+            await createTareaBacklogController(nuevaTarea);
+        } catch (err) {
+            setEliminarTarea(nuevaTarea.id!)
+            console.error("error al agregar tareas: ", err)
+        }
+    }
+
+    const { crearTareaParaProyectos } = useTareas();
+
+    const sacarTareaDelBacklog = async (tareaAEliminar: ITareaBacklog, tareaACrear: ITarea) => {
+        const estadoPrevio = tareasBacklog.find((tarea) => tarea.id === tareaAEliminar.id);
+
+        setEliminarTarea(tareaAEliminar.id!)
+        try {
+            await deleteTareaBacklogController(tareaAEliminar.id!)
+            crearTareaParaProyectos(tareaACrear.idProyecto!, tareaACrear)
+            Swal.fire("Exito", "Tarea fue extraida al backlog correctamente", "success")
+        } catch (error) {
+            if (estadoPrevio) setAgregarTarea(estadoPrevio)
+            console.log("Algo salio mal al sacar la Tarea Del Backlog : ", error);
+
+        }
+    }
 
     return {
-        tareas,
-<<<<<<< HEAD
-        getTareas,
-        crearTarea,
-        editarTarea,
-        deleteTarea
-=======
-        tareaActiva,
+        tareasBacklog,
+        tareaBacklogActiva,
         getTareasBacklog,
-        setTareaActiva,
         postCrearTareaBacklog,
         putEditarTareaBacklog,
-        deleteTareaBacklog
->>>>>>> fbbfee66312aee5dfe8c2aca29c63e6423584845
+        deleteTareaBacklog,
+        sacarTareaDelBacklog,
+        crearTareaParaElBacklog
     }
 }
 

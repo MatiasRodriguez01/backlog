@@ -37,21 +37,7 @@ const useTareas = () => {
         }
     }
 
-<<<<<<< HEAD
-    const getTareasPorProyecto = async (proyecto: IProyecto) => {
-        try {
-            if (proyecto) {
-                setTareasPorProyecto(proyecto)
-            }
-        } catch (err) {
-            console.error("error al mostrar las tareas: ", err)
-        }
-    }
-
-    const crearTarea = async (nuevaTarea: ITarea) => {
-=======
     const postCrearTarea = async (idProyecto: string, nuevaTarea: ITarea) => {
->>>>>>> fbbfee66312aee5dfe8c2aca29c63e6423584845
         setAgregarTarea(nuevaTarea);
         try {
 
@@ -69,13 +55,8 @@ const useTareas = () => {
         }
     }
 
-<<<<<<< HEAD
-    const editarTarea = async (tareaActualizada: ITarea) => {
-        const estadoPrevio = tareasPorProyecto.find((tarea) =>
-=======
     const putEditarTarea = async (idProyecto: string, tareaActualizada: ITarea) => {
         const estadoPrevio = tareas.find((tarea) =>
->>>>>>> fbbfee66312aee5dfe8c2aca29c63e6423584845
             tarea.id === tareaActualizada.id
         );
         setEditarTarea(tareaActualizada);
@@ -112,20 +93,45 @@ const useTareas = () => {
         }
     }
 
+    const crearTareaParaProyectos = async (idProyecto: string, nuevaTarea: ITarea) => {
+        setAgregarTarea(nuevaTarea);
+        try {
+
+            const result = await createTareaController(idProyecto, nuevaTarea);
+            console.log("Esta tarea se envio a su proyecto: ", result)
+        } catch (err) {
+            setEliminarTarea(nuevaTarea.id!)
+            console.error("error al agregar tareas: ", err)
+        }
+    }
+
+
+    const enviarTareaAlBacklog = async (tareaAEliminar: ITarea) => {
+        const idTarea = tareaAEliminar.id;
+        const estadoPrevio = tareas.find((tarea) => tarea.id === idTarea);
+
+        setEliminarTarea(tareaAEliminar.id!)
+        try {
+            await deleteTareaController(tareaAEliminar.idProyecto!, idTarea!)
+            
+            Swal.fire("Exito", "Tarea fue enviada al backlog correctamente", "success")
+        } catch (error) {
+            if (estadoPrevio) setAgregarTarea(estadoPrevio)
+            console.log("Algo salio mal al eliminar tarea: ", error);
+
+        }
+    }
+
     return {
         tareas,
         tareaActiva,
         getTareas,
-<<<<<<< HEAD
-        getTareasPorProyecto,
-        crearTarea,
-        editarTarea,
-=======
         setTareaActiva,
         postCrearTarea,
         putEditarTarea,
->>>>>>> fbbfee66312aee5dfe8c2aca29c63e6423584845
-        deleteTarea
+        deleteTarea,
+        crearTareaParaProyectos,
+        enviarTareaAlBacklog
     }
 }
 

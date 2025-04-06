@@ -1,8 +1,8 @@
 import axios from "axios";
-import { IBacklog, ITarea } from "../../types/IInterfaces";
+import { IBacklog, ITareaBacklog } from "../../types/IInterfaces";
 import { API_BACKLOG } from "../../utils/constantes";
 
-export const putBacklogListController = async (tareas: ITarea[]) => {
+export const putBacklogListController = async (tareas: ITareaBacklog[]) => {
     try {
         const response = await axios.put<IBacklog>(API_BACKLOG, {
             tareas 

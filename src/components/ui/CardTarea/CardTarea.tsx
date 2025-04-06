@@ -10,14 +10,12 @@ type ICardTarea = {
 }
 export const CardTarea: FC<ICardTarea> = ({ tareaa, handleCloseModal }) => {
 
-
-
     return (
         <div className={styles.modalContainer}>
             <div className={styles.contentPopUp}>
                 <h2>{tareaa.titulo}</h2>
                 <p>Descripcion: {tareaa.descripcion}</p>
-                <p>Fecha inicio: {tareaa.fechaLimite} </p>
+                <p>Fecha Limite: {tareaa.fechaLimite} </p>
                 <button onClick={handleCloseModal}>Cancelar</button>
             </div>
         </div>

@@ -26,17 +26,17 @@ const initialState: ITarea = {
 const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
 
     const {
-        tareaActiva,
+        tareaBacklogActiva,
         setTareaActiva
     } = backlogStore(
         useShallow((state) => ({
-            tareaActiva: state.tareaActiva,
+            tareaBacklogActiva: state.tareaBacklogActiva,
             setTareaActiva: state.setTareaActiva
         }))
     )
     // const setTareaActva = backlogStore((state) => (state.setTareaActiva))
 
-    const { editarTarea, crearTarea } = useBacklog()
+    const { putEditarTareaBacklog, postCrearTareaBacklog } = useBacklog()
 
     const [formValues, setFormValues] = useState<ITarea>(initialState);
 
@@ -48,24 +48,24 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
-        if (tareaActiva) {
-            editarTarea(formValues)
+        if (tareaBacklogActiva) {
+            putEditarTareaBacklog(formValues)
         } else {
-            crearTarea({ ...formValues, id: new Date().toISOString(), idProyecto: idValue })
+            postCrearTareaBacklog({ ...formValues, id: new Date().toISOString(), idProyecto: idValue })
         }
         setTareaActiva(null)
         handleCloseModal()
     }
 
     useEffect(() => {
-        if (tareaActiva) setFormValues(tareaActiva);
+        if (tareaBacklogActiva) setFormValues(tareaBacklogActiva);
     }, []);
 
     return (
         <div className={styles.containerPrincipalPopUp}>
             <div className={styles.contentPopUp}>
                 <div>
-                    <h2>{tareaActiva ? "Editar tarea" : "Crear tarea"}</h2>
+                    <h2>{tareaBacklogActiva ? "Editar tarea" : "Crear tarea"}</h2>
                 </div>
                 <form onSubmit={handleSubmit} className={styles.formContent}>
                     <div>
@@ -104,7 +104,7 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
                     <div className={styles.buttonCard}>
                         <button className={styles.buttonCancel} onClick={handleCloseModal}>Cancelar</button>
                         <button className={styles.buttonSubmit} type="submit">
-                            {tareaActiva ? "Editar tarea" : "Crear tarea"}
+                            {tareaBacklogActiva ? "Editar tarea" : "Crear tarea"}
                         </button>
                     </div>
                 </form>

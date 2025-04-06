@@ -10,9 +10,11 @@ const PrincipalScreen = () => {
     const [isBacklogView, setIsBacklogView] = useState(false);
     const { proyectoActivo, proyectos } = useProyecto()
 
+
     useEffect(() => {
         console.log("Proyecto activo: ", proyectoActivo)
     }, [ proyectoActivo, proyectos])
+
  
     return (
         <>

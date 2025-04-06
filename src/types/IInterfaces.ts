@@ -24,3 +24,12 @@ export interface ITarea {
     fechaLimite: string
 }
 
+export interface ITareaBacklog {
+    id?:string
+    idProyecto?: string
+    titulo:string
+    estado: string
+    string: string
+    descripcion: string
+    fechaLimite: string
+}
