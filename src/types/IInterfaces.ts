@@ -17,7 +17,7 @@ export interface IProyecto {
 
 export interface ITarea {
     id?:number
-    idProyecto?: string
+    idProyecto: number | null
     titulo:string
     estado: string
     descripcion: string
@@ -26,7 +26,7 @@ export interface ITarea {
 
 export interface ITareaBacklog {
     id?:number
-    idProyecto?: string
+    idProyecto: number | null
     titulo:string
     estado: string
     string: string

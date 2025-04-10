@@ -64,8 +64,8 @@ const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}
           </div>
           <div className={styles.containerTargetas}>
             {proyectos.length > 0 ?(
-              proyectos.map((proyecto, index)=>(
-                <Sprint key={index} handleOpenModalEdit={handleOpenModalEdit} proyecto={proyecto}/>
+              proyectos.map((proyecto)=>(
+                <Sprint key={proyecto.id} handleOpenModalEdit={handleOpenModalEdit} proyecto={proyecto}/>
               ))
             ):(
               <div>

@@ -8,14 +8,14 @@ import useTareas from '../../../hooks/useTareas';
 // import { proyectoStrore } from '../../../store/proyectoStore';
 
 interface IModalTarea {
-    idValue?: string;
+    idProyecto: number;
     handleCloseModal: VoidFunction;
 }
 
 
 const initialState: ITarea = {
-    id: "",
-    idProyecto: "",
+    id: 0,
+    idProyecto: null,
     titulo: "",
     estado: "",
     descripcion: "",
@@ -23,7 +23,7 @@ const initialState: ITarea = {
 }
 
 
-const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
+const ModalTarea: FC<IModalTarea> = ({ idProyecto, handleCloseModal }) => {
 
     const tareaActva = tareaStore((state) => state.tareaActiva);
     // const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
@@ -42,9 +42,9 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
         if (tareaActva) {
-            putEditarTarea(idValue!, formValues)
+            putEditarTarea(idProyecto, formValues)
         } else {
-            postCrearTarea(idValue!, { ...formValues, id: new Date().toISOString(), idProyecto: idValue })
+            postCrearTarea(idProyecto, { ...formValues, id: Date.now(), idProyecto: idProyecto })
         }
         setTareaActva(null)
         handleCloseModal()

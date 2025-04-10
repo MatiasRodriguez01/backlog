@@ -8,15 +8,15 @@ import { ListGroup } from "react-bootstrap";
 import TareaBacklog from "../TareaBacklog/TareaBacklog";
 
 const Backlog = () => {
-  const setTareaActiva = backlogStore((state) => state.setTareaActiva);
+  const setTareaActivaBacklog = backlogStore((state) => state.setTareaActivaBacklog);
 
   const { getTareasBacklog, tareasBacklog } = useBacklog();
 
   const [openModalTarea, setOpenModalTarea] = useState<boolean>(false);
 
   const handleOpenModalEdit = (tarea: ITareaBacklog) => {
-    setTareaActiva(null);
-    setTareaActiva(tarea);
+    setTareaActivaBacklog(null);
+    setTareaActivaBacklog(tarea);
     setOpenModalTarea(true);
   }; 
 
@@ -52,7 +52,7 @@ const Backlog = () => {
             {
               tareasBacklog.length > 0 ? (
                 tareasBacklog.map((tarea) => (
-                  <ListGroup.Item key={tarea.id!}>
+                  <ListGroup.Item key={tarea.id}>
                       <TareaBacklog tarea={tarea} handleOpenModalEdit={handleOpenModalEdit} />
                   </ListGroup.Item>
                 ))
@@ -71,7 +71,7 @@ const Backlog = () => {
 
       {openModalTarea && (
         <ModalTarea
-          idValue={""}
+          idProyecto={null}
           handleCloseModal={() => setOpenModalTarea(false)}
         />
       )}

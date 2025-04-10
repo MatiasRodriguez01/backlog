@@ -132,7 +132,7 @@ const ListaTareas = () => {
       {
         openModalTarea &&
         <ModalTarea
-          idValue={proyectoActivo?.id}
+          idProyecto={proyectoActivo!.id!}
           handleCloseModal={() => setOpenModalTarea(false)} />
       }
     </>

@@ -63,7 +63,7 @@ const useBacklog = () => {
         }
     }
 
-    const deleteTareaBacklog = async (idTarea: string) => {
+    const deleteTareaBacklog = async (idTarea: number) => {
         const estadoPrevio = tareasBacklog.find((tarea) => tarea.id === idTarea);
 
         const confirm = await Swal.fire({
@@ -100,11 +100,12 @@ const useBacklog = () => {
 
     const sacarTareaDelBacklog = async (tareaAEliminar: ITareaBacklog, tareaACrear: ITarea) => {
         const estadoPrevio = tareasBacklog.find((tarea) => tarea.id === tareaAEliminar.id);
+        const idProyecto = tareaACrear.idProyecto!;
 
         setEliminarTarea(tareaAEliminar.id!)
         try {
             await deleteTareaBacklogController(tareaAEliminar.id!)
-            crearTareaParaProyectos(tareaACrear.idProyecto!, tareaACrear)
+            crearTareaParaProyectos(idProyecto, tareaACrear)
             Swal.fire("Exito", "Tarea fue extraida al backlog correctamente", "success")
         } catch (error) {
             if (estadoPrevio) setAgregarTarea(estadoPrevio)

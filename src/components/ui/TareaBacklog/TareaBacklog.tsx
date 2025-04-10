@@ -32,8 +32,6 @@ const TareaBacklog: FC<ITareaCard> = ({ tarea, handleOpenModalEdit }) => {
     
         setTareaActivaBacklog(null); // opcional
     };
-    
-
 
     const handleChangeSacarDelBacklog = (tareaEnviar: ITareaBacklog) => {
         if (tareaEnviar.string) {
@@ -42,7 +40,7 @@ const TareaBacklog: FC<ITareaCard> = ({ tarea, handleOpenModalEdit }) => {
                 const { id, titulo, descripcion, estado, fechaLimite } = tareaEnviar
                 const nuevaTarea: ITarea = {
                     id: id,
-                    idProyecto: proyecto.id,
+                    idProyecto: proyecto.id!,
                     titulo: titulo,
                     descripcion: descripcion,
                     estado: estado,

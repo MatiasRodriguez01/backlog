@@ -27,7 +27,7 @@ const useTareas = () => {
             setEliminarTarea: state.setEliminarTarea
         })))
 
-    const getTareas = async (idProyecto: string) => {
+    const getTareas = async (idProyecto: number) => {
         try {
             const data = await getAllTareaPorProyecto(idProyecto);
             console.log(data)
@@ -37,7 +37,7 @@ const useTareas = () => {
         }
     }
 
-    const postCrearTarea = async (idProyecto: string, nuevaTarea: ITarea) => {
+    const postCrearTarea = async (idProyecto: number, nuevaTarea: ITarea) => {
         setAgregarTarea(nuevaTarea);
         try {
 
@@ -55,7 +55,7 @@ const useTareas = () => {
         }
     }
 
-    const putEditarTarea = async (idProyecto: string, tareaActualizada: ITarea) => {
+    const putEditarTarea = async (idProyecto: number, tareaActualizada: ITarea) => {
         const estadoPrevio = tareas.find((tarea) =>
             tarea.id === tareaActualizada.id
         );
@@ -69,7 +69,7 @@ const useTareas = () => {
         }
     }
 
-    const deleteTarea = async (idProyecto: string, idTarea: string) => {
+    const deleteTarea = async (idProyecto: number, idTarea: number) => {
         const estadoPrevio = tareas.find((tarea) => tarea.id === idTarea);
 
         const confirm = await Swal.fire({
@@ -93,7 +93,7 @@ const useTareas = () => {
         }
     }
 
-    const crearTareaParaProyectos = async (idProyecto: string, nuevaTarea: ITarea) => {
+    const crearTareaParaProyectos = async (idProyecto: number, nuevaTarea: ITarea) => {
         setAgregarTarea(nuevaTarea);
         try {
 
@@ -106,13 +106,13 @@ const useTareas = () => {
     }
 
 
-    const enviarTareaAlBacklog = async (tareaAEliminar: ITarea) => {
+    const enviarTareaAlBacklog = async (idProyecto: number, tareaAEliminar: ITarea) => {
         const idTarea = tareaAEliminar.id;
         const estadoPrevio = tareas.find((tarea) => tarea.id === idTarea);
 
         setEliminarTarea(tareaAEliminar.id!)
         try {
-            await deleteTareaController(tareaAEliminar.idProyecto!, idTarea!)
+            await deleteTareaController(idProyecto, idTarea!)
             
             Swal.fire("Exito", "Tarea fue enviada al backlog correctamente", "success")
         } catch (error) {

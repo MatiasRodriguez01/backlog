@@ -1,7 +1,7 @@
 import { ITarea } from "../../types/IInterfaces";
 import { getAllTareaPorProyecto, updateAllTareasPorProyecto } from "./tareasList";
 
-export const createTareaController = async (idProyecto: string, nuevaTarea: ITarea) => {
+export const createTareaController = async (idProyecto: number, nuevaTarea: ITarea) => {
     try {
         const tareas = await getAllTareaPorProyecto(idProyecto);
         if (tareas) {
@@ -13,7 +13,7 @@ export const createTareaController = async (idProyecto: string, nuevaTarea: ITar
     }
 };
 
-export const updateTareaController = async (idProyecto: string, tareaActualizada: ITarea) => {
+export const updateTareaController = async (idProyecto: number, tareaActualizada: ITarea) => {
     try {
         const tareas = await getAllTareaPorProyecto(idProyecto);
         if (tareas) {
@@ -28,12 +28,11 @@ export const updateTareaController = async (idProyecto: string, tareaActualizada
     }
 };
 
-export const deleteTareaController = async (idProyecto: string, idTarea: string) => {
+export const deleteTareaController = async (idProyecto: number, idTarea: number) => {
     try {
         const tareas = await getAllTareaPorProyecto(idProyecto);
         if (tareas) {
             const result = tareas.filter((tarea) => tarea.id !== idTarea);
-            console.log("proyecto: ", idProyecto, " eliminado!!")
             await updateAllTareasPorProyecto(idProyecto, result);
         }
     } catch (err) {
