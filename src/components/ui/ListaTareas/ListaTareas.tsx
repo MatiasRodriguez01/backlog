@@ -61,10 +61,10 @@ const ListaTareas = () => {
     <>
       <div className={styles.containerPrincipal}>
         <div className={styles.titulo}>
-          <h2>Nombre de la sprint</h2>
+          <h2>{proyectoActivo?.nombre}</h2>
         </div>
         <div className={styles.buttonAddTarea}>
-          <h2>Tareas en la sprint: </h2>
+          <h2>Tareas en la sprint</h2>
           <button
             className={styles.containerButton}
             onClick={handleClickAddTarea}
