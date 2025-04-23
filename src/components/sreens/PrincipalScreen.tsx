@@ -7,13 +7,20 @@ import styles from './PrincipalScreen.module.css'
 import { useProyecto } from "../../hooks/useProyecto";
 
 const PrincipalScreen = () => {
-    const [isBacklogView, setIsBacklogView] = useState(false);
+    const [isBacklogView, setIsBacklogView] = useState(()=>{
+        const saved = localStorage.getItem('isBacklogView');
+        return saved === "true"
+    });
     const { proyectoActivo, proyectos } = useProyecto()
 
 
     useEffect(() => {
         console.log("Proyecto activo: ", proyectoActivo)
     }, [ proyectoActivo, proyectos])
+
+    useEffect(() => {
+        localStorage.setItem('isBacklogView', isBacklogView.toString());
+    }, [isBacklogView]);
 
  
     return (

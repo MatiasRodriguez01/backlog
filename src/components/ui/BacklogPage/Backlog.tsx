@@ -8,7 +8,7 @@ import { ListGroup } from "react-bootstrap";
 import TareaBacklog from "../TareaBacklog/TareaBacklog";
 
 const Backlog = () => {
-  const setTareaActiva = backlogStore((state) => state.setTareaActiva);
+  const setTareaActiva = backlogStore((state) => state.setTareaActivaBacklog);
 
   const { getTareasBacklog, tareasBacklog } = useBacklog();
 

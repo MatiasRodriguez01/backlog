@@ -1,11 +1,11 @@
-import PrincipalScreen from "./components/sreens/PrincipalScreen"
+import AppRouter from "./appRouter";
 
 
 function App() {
 
   return (
     <>
-      <PrincipalScreen/>
+      <AppRouter/>
     </>
   )
 }
