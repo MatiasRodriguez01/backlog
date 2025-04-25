@@ -45,7 +45,7 @@ export const updateTareaBacklogController = async (tareaActualizada: ITareaBackl
     }
 }
 
-export const deleteTareaBacklogController = async (idTarea: string) => {
+export const deleteTareaBacklogController = async (idTarea: number) => {
     try {
         const tareasBacklog = await getAllTareasBacklogController();
         if (tareasBacklog) {

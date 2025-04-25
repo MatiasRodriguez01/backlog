@@ -37,7 +37,7 @@ const Tarea: FC<ITareaCard> = ({ tarea, handleEditTarea }) => {
         const { id, titulo, descripcion, estado, fechaLimite } = tarea;
         const nuevaTarea: ITareaBacklog = {
             id, 
-            idProyecto: "",
+            idProyecto: null,
             titulo, 
             string: "",
             descripcion, 

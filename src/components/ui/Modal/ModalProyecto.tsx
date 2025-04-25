@@ -9,7 +9,7 @@ type IModal = {
 }
 
 const initialState: IProyecto = {
-  id : "",
+  id : 0,
   nombre: "",
   descripcion: "",
   fechaInicio: "",
@@ -22,7 +22,7 @@ export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {
   const proyectoActivo = proyectoStrore((state) => state.proyectoActivo)
   // const proyectoActivo = proyectoStrore((state) => state.proyectoActivo)
 
-  const setProyectotActivo = proyectoStrore((state) => state.setProyectotActivo)
+  const setProyectotActivo = proyectoStrore((state) => state.setProyectoActivo)
 
   const { crearProyecto, editarProyecto } = useProyecto()
 
@@ -39,7 +39,7 @@ export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {
     if (proyectoActivo) {
       editarProyecto(formValues)
     } else {
-      crearProyecto({ ...formValues, id: new Date().toISOString() })
+      crearProyecto({ ...formValues, id:  Date.now() })
     }
     setProyectotActivo(null)
     handleCloseModal()

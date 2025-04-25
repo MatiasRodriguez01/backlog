@@ -9,7 +9,7 @@ interface IBacklogStore {
     setTareaActivaBacklog: (tarea: ITareaBacklog | null) => void;
     setAgregarTarea: (nuevaTarea: ITareaBacklog) => void;
     setEditarTarea: (tareaEditada: ITareaBacklog) => void;
-    setEliminarTarea: (idTarea: string) => void;
+    setEliminarTarea: (idTarea: number) => void;
 }
 
 export const backlogStore = create<IBacklogStore>((set) => ({

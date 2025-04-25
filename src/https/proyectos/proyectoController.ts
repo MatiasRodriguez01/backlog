@@ -53,7 +53,7 @@ export const editProyectoController = async (proyectEdit: IProyecto) => {
 
 // eliminar un proyecto: delete
 
-export const deleteProyectoController = async (idProyect: string) => {
+export const deleteProyectoController = async (idProyect: number) => {
     try {
         const proyectosBd = await getProyectosController();
 

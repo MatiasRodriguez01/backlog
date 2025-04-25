@@ -8,7 +8,7 @@ interface IProyectoStore {
     setArrayProyectos: (arrayDeSprint: IProyecto[]) => void;
     setAgregarProyecto: (nuevoSprint: IProyecto) => void;
     setEditarProyecto: (sprintActualizado: IProyecto) => void;
-    setEliminarProyecto: (idProyecto: string) => void;
+    setEliminarProyecto: (idProyecto: number) => void;
 }
 
 export const proyectoStrore = create<IProyectoStore>((set) => ({

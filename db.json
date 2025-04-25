@@ -2,53 +2,54 @@
   "backlog": {
     "tareas": [
       {
-        "id": "2025-04-05T02:43:17.706Z",
-        "idProyecto": "",
+        "id": 1744249482921,
+        "idProyecto": null,
         "titulo": "tarea no se cuanto",
         "string": "",
         "descripcion": "esta una des crig hhjjnm",
         "estado": "completado",
         "fechaLimite": "2025-05-03"
+      },
+      {
+        "id": 1744249482944,
+        "idProyecto": null,
+        "titulo": "tarea 5",
+        "string": "",
+        "descripcion": "tcvyg",
+        "estado": "pendiente",
+        "fechaLimite": "2025-04-16"
       }
     ]
   },
   "proyectoList": {
     "proyectos": [
       {
-        "id": "1",
+        "id": 1,
         "nombre": "proyecto",
         "descripcion": "exrctvygg",
         "fechaInicio": "2025-03-20",
         "fechaCierre": "2025-03-20",
         "tareas": [
           {
-            "id": "2025-04-04T03:40:19.703Z",
-            "idProyecto": "1",
-            "titulo": "tarea 5",
-            "estado": "pendiente",
-            "descripcion": "tcvyg",
-            "fechaLimite": "2025-04-16"
-          },
-          {
-            "id": "2025-04-06T00:18:00.690Z",
-            "idProyecto": "1",
+            "id": 1,
+            "idProyecto": 1,
             "titulo": "tarea nueva",
             "descripcion": "descripcion de esta tarea",
-            "estado": "en_proceso",
+            "estado": "pendiente",
             "fechaLimite": "2025-04-29"
           }
         ]
       },
       {
-        "id": "2",
+        "id": 2,
         "nombre": "string 2",
         "descripcion": "esta es una decripcion",
         "fechaInicio": "2025-03-26",
         "fechaCierre": "2025-03-28",
         "tareas": [
           {
-            "id": "2025-04-06T01:01:40.773Z",
-            "idProyecto": "2",
+            "id": 2,
+            "idProyecto": 2,
             "titulo": "DXTCFGVHB",
             "descripcion": "RCTYVUBIN",
             "estado": "completado",
@@ -57,7 +58,7 @@
         ]
       },
       {
-        "id": "2025-04-06T00:57:07.599Z",
+        "id": 3,
         "nombre": "independiente",
         "descripcion": "este es el proyecto e ins",
         "fechaInicio": "2025-04-22",

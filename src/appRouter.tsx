@@ -4,12 +4,12 @@ import PrincipalScreen from './components/sreens/PrincipalScreen'
 const appRouter = () => {
   return (
     <BrowserRouter>
-        <Routes>
+      <Routes>
         <Route path="/" element={<PrincipalScreen />} />
-        </Routes>
+      </Routes>
 
     </BrowserRouter>
 
-)
+  )
 }
 export default appRouter

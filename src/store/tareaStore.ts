@@ -8,7 +8,7 @@ interface ITareaStore {
     setTareas: (arrayTareas: ITarea[]) => void,
     setAgregarTarea: (nuevaTarea: ITarea) => void;
     setEditarTarea: (tareaEditada: ITarea) => void;
-    setEliminarTarea: (idTarea: string) => void;
+    setEliminarTarea: (idTarea: number) => void;
 }
 
 export const tareaStore = create<ITareaStore>((set)=>({
