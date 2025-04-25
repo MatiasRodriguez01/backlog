@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { API_PROYECTS } from "../../utils/constantes";
 import { IProyecto, ITarea } from "../../types/IInterfaces";
-import { getProyectosController } from "../proyectos/proyectoController";
+import { editProyectoController, getProyectosController } from "../proyectos/proyectoController";
 import Swal from "sweetalert2";
 
 /// mostrar tareas por proyecto
@@ -25,13 +25,19 @@ export const getAllTareaPorProyecto = async (id: number) => {
 
 export const updateAllTareasPorProyecto = async (idProyecto: number, nuevasTareas: ITarea[]) => {
     try {
-        
-        const response = await axios.put<IProyecto>(`${API_PROYECTS}/${idProyecto}`, {
-            tareas: nuevasTareas
-        })
+        // Obtener proyectos
+        const proyectos = await getProyectosController();
+        const proyecto = proyectos?.find((p) => p.id === idProyecto);
 
-        return response;
-        
+        if (proyecto) {
+            const proyectoActualizado: IProyecto = {
+                ...proyecto,
+                tareas: nuevasTareas,
+            };
+            const response = await editProyectoController(proyectoActualizado);
+            return response;
+        }
+
     } catch (err) {
         Swal.fire("Error", "Tarea creada correctamente", "error")
         console.error("Error en updateAllTareasPorProyecto: ", err);

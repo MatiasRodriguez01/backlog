@@ -15,7 +15,7 @@
         "idProyecto": null,
         "titulo": "tarea 5",
         "string": "",
-        "descripcion": "tcvyg",
+        "descripcion": "m",
         "estado": "pendiente",
         "fechaLimite": "2025-04-16"
       }
@@ -46,16 +46,7 @@
         "descripcion": "esta es una decripcion",
         "fechaInicio": "2025-03-26",
         "fechaCierre": "2025-03-28",
-        "tareas": [
-          {
-            "id": 2,
-            "idProyecto": 2,
-            "titulo": "DXTCFGVHB",
-            "descripcion": "RCTYVUBIN",
-            "estado": "completado",
-            "fechaLimite": "2025-04-18"
-          }
-        ]
+        "tareas": []
       },
       {
         "id": 3,
