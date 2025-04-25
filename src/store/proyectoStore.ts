@@ -1,44 +1,53 @@
+
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { IProyecto } from "../types/IInterfaces";
 
 interface IProyectoStore {
-    proyectos: IProyecto[];
-    proyectoActivo: IProyecto | null;
-    setProyectoActivo: (proyectoActivo: IProyecto | null) => void;
-    setArrayProyectos: (arrayDeSprint: IProyecto[]) => void;
-    setAgregarProyecto: (nuevoSprint: IProyecto) => void;
-    setEditarProyecto: (sprintActualizado: IProyecto) => void;
-    setEliminarProyecto: (idProyecto: string) => void;
+  proyectos: IProyecto[];
+  proyectoActivo: IProyecto | null;
+  setProyectoActivo: (proyectoActivo: IProyecto | null) => void;
+  setArrayProyectos: (arrayDeSprint: IProyecto[]) => void;
+  setAgregarProyecto: (nuevoSprint: IProyecto) => void;
+  setEditarProyecto: (sprintActualizado: IProyecto) => void;
+  setEliminarProyecto: (idProyecto: string) => void;
 }
 
-export const proyectoStrore = create<IProyectoStore>((set) => ({
+export const proyectoStrore = create<IProyectoStore>()(
+  persist(
+    (set) => ({
+      proyectos: [],
+      proyectoActivo: null,
 
-    proyectos: [], // proyectos
-    proyectoActivo: null,  // proyecto activo
+      setProyectoActivo: (nuevoProyectoActivo) =>
+        set(() => ({ proyectoActivo: nuevoProyectoActivo })),
 
-    // setear un proyecto activo
-    setProyectoActivo: (nuevoProyectoActivo) => set(() => ({
-        proyectoActivo: nuevoProyectoActivo
-    })),
+      setArrayProyectos: (arrayProyectos) =>
+        set(() => ({ proyectos: arrayProyectos })),
 
-    setArrayProyectos: (arrayProyectos) => set(() => ({
-        proyectos: arrayProyectos
-    })),
+      setAgregarProyecto: (nuevoProyecto) =>
+        set((state) => ({
+          proyectos: [...state.proyectos, nuevoProyecto],
+        })),
 
-    setAgregarProyecto: (nuevoProyecto) => set((state) => ({
-        proyectos: [...state.proyectos, nuevoProyecto]
-    })),
+      setEditarProyecto: (proyectoEditado) =>
+        set((state) => ({
+          proyectos: state.proyectos.map((proyecto) =>
+            proyecto.id === proyectoEditado.id
+              ? { ...proyecto, ...proyectoEditado }
+              : proyecto
+          ),
+        })),
 
-    setEditarProyecto: (proyectoEditado) => set((state) => {
-        const arregloProyecto = state.proyectos.map((proyecto) =>
-            proyecto.id === proyectoEditado.id ? { ...proyecto, ...proyectoEditado } : proyecto
-        );
-        return { proyectos: arregloProyecto }
+      setEliminarProyecto: (idProyecto) =>
+        set((state) => ({
+          proyectos: state.proyectos.filter(
+            (proyecto) => proyecto.id !== idProyecto
+          ),
+        })),
     }),
-
-    setEliminarProyecto: (idProyecto) => set((state) => {
-        const arregloProyecto = state.proyectos.filter((proyecto) => proyecto.id !== idProyecto);
-        return { proyectos: arregloProyecto }
-    })
-}
-))
+    {
+      name: "proyecto-storage", // clave del localStorage
+    }
+  )
+);

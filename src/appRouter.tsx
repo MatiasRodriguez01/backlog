@@ -1,14 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import PrincipalScreen from './components/sreens/PrincipalScreen'
+import ListaTareas from "./components/ui/ListaTareas/ListaTareas";
+import Backlog from "./components/ui/BacklogPage/Backlog";
 
 const appRouter = () => {
   return (
-    <BrowserRouter>
-        <Routes>
+    
+      <Routes>
         <Route path="/" element={<PrincipalScreen />} />
-        </Routes>
-
-    </BrowserRouter>
+        <Route path="/tareas" element={<ListaTareas />} />
+        <Route path="/backlog" element={<Backlog />} />
+      </Routes>
+    
 
 )
 }
