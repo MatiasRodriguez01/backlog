@@ -7,7 +7,7 @@ export interface IBacklog {
 }
 
 export interface IProyecto {
-    id?: string,
+    id?: number,
     nombre: string
     descripcion: string
     fechaInicio: string
@@ -16,8 +16,8 @@ export interface IProyecto {
 }
 
 export interface ITarea {
-    id?:string
-    idProyecto?: string
+    id?:number
+    idProyecto?: number |null
     titulo:string
     estado: string
     descripcion: string
@@ -25,8 +25,8 @@ export interface ITarea {
 }
 
 export interface ITareaBacklog {
-    id?:string
-    idProyecto?: string
+    id?:number
+    idProyecto?: number | null
     titulo:string
     estado: string
     string: string

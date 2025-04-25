@@ -61,7 +61,7 @@ export const useProyecto = () => {
     }
   };
 
-  const eliminarProyecto = async (idSprint: string) => {
+  const eliminarProyecto = async (idSprint: number) => {
     const estadoPrevio = proyectos.find((el) => el.id === idSprint);
 
     const confirm = await Swal.fire({

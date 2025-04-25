@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 /// mostrar tareas por proyecto
 
-export const getAllTareaPorProyecto = async (id: string) => {
+export const getAllTareaPorProyecto = async (id: number) => {
     try {
         const result = await getProyectosController();
         if (result){
@@ -23,7 +23,7 @@ export const getAllTareaPorProyecto = async (id: string) => {
 }
 
 
-export const updateAllTareasPorProyecto = async (idProyecto: string, nuevasTareas: ITarea[]) => {
+export const updateAllTareasPorProyecto = async (idProyecto: number, nuevasTareas: ITarea[]) => {
     try {
         // Obtener proyectos
         const proyectos = await getProyectosController();

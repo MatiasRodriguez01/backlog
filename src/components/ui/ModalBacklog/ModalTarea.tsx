@@ -2,22 +2,23 @@
 
 import { useShallow } from 'zustand/shallow';
 import useBacklog from '../../../hooks/useBacklog';
-import { ITarea } from '../../../types/IInterfaces';
+import { ITareaBacklog } from '../../../types/IInterfaces';
 import styles from './ModalTarea.module.css'
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import backlogStore from '../../../store/backlogStore';
 
 interface IModalTarea {
-    idValue?: string;
+    idValue: null;
     handleCloseModal: VoidFunction;
 }
 
 
-const initialState: ITarea = {
-    id: "",
-    idProyecto: "",
+const initialState: ITareaBacklog = {
+    id: 0,
+    idProyecto: null,
     titulo: "",
     estado: "",
+    string: "",
     descripcion: "",
     fechaLimite: ""
 }
@@ -27,18 +28,18 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
 
     const {
         tareaBacklogActiva,
-        setTareaActiva
+        setTareaActivaBacklog
     } = backlogStore(
         useShallow((state) => ({
             tareaBacklogActiva: state.tareaBacklogActiva,
-            setTareaActiva: state.setTareaActiva
+            setTareaActivaBacklog: state.setTareaActivaBacklog
         }))
     )
     // const setTareaActva = backlogStore((state) => (state.setTareaActiva))
 
     const { putEditarTareaBacklog, postCrearTareaBacklog } = useBacklog()
 
-    const [formValues, setFormValues] = useState<ITarea>(initialState);
+    const [formValues, setFormValues] = useState<ITareaBacklog>(initialState);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -51,9 +52,9 @@ const ModalTarea: FC<IModalTarea> = ({ idValue, handleCloseModal }) => {
         if (tareaBacklogActiva) {
             putEditarTareaBacklog(formValues)
         } else {
-            postCrearTareaBacklog({ ...formValues, id: new Date().toISOString(), idProyecto: idValue })
+            postCrearTareaBacklog({ ...formValues, id: Date.now(), idProyecto: idValue })
         }
-        setTareaActiva(null)
+        setTareaActivaBacklog(null)
         handleCloseModal()
     }
 

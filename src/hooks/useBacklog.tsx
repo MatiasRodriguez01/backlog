@@ -63,7 +63,7 @@ const useBacklog = () => {
         }
     }
 
-    const deleteTareaBacklog = async (idTarea: string) => {
+    const deleteTareaBacklog = async (idTarea: number) => {
         const estadoPrevio = tareasBacklog.find((tarea) => tarea.id === idTarea);
 
         const confirm = await Swal.fire({

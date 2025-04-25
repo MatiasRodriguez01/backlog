@@ -71,7 +71,7 @@ const Backlog = () => {
 
       {openModalTarea && (
         <ModalTarea
-          idValue={""}
+          idValue={null}
           handleCloseModal={() => setOpenModalTarea(false)}
         />
       )}

@@ -4,13 +4,15 @@ import { persist } from "zustand/middleware";
 import { ITarea } from "../types/IInterfaces";
 
 interface ITareaStore {
-  tareas: ITarea[],
-  tareaActiva: ITarea | null,
-  setTareaActiva: (tarea: ITarea | null) => void,
-  setTareas: (arrayTareas: ITarea[]) => void,
-  setAgregarTarea: (nuevaTarea: ITarea) => void;
-  setEditarTarea: (tareaEditada: ITarea) => void;
-  setEliminarTarea: (idTarea: string) => void;
+
+    tareas: ITarea[],
+    tareaActiva: ITarea | null,
+    setTareaActiva: (tarea: ITarea | null) => void,
+    setTareas: (arrayTareas: ITarea[]) => void,
+    setAgregarTarea: (nuevaTarea: ITarea) => void;
+    setEditarTarea: (tareaEditada: ITarea) => void;
+    setEliminarTarea: (idTarea: number) => void;
+
 }
 
 export const tareaStore = create(
@@ -46,7 +48,7 @@ export const tareaStore = create(
       }),
     }),
     {
-      name: 'tarea-storage',
+      name: 'tarea-storage'
     }
   )
 );

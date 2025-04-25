@@ -5,13 +5,15 @@ import { persist } from 'zustand/middleware';
 import { ITareaBacklog } from '../types/IInterfaces';
 
 interface IBacklogStore {
-  tareasBacklog: ITareaBacklog[];
-  tareaBacklogActiva: ITareaBacklog | null;
-  setTareasBacklog: (arrayTareas: ITareaBacklog[]) => void;
-  setTareaActivaBacklog: (tarea: ITareaBacklog | null) => void;
-  setAgregarTarea: (nuevaTarea: ITareaBacklog) => void;
-  setEditarTarea: (tareaEditada: ITareaBacklog) => void;
-  setEliminarTarea: (idTarea: string) => void;
+
+    tareasBacklog: ITareaBacklog[];
+    tareaBacklogActiva: ITareaBacklog | null;
+    setTareasBacklog: (arrayTareas: ITareaBacklog[]) => void;
+    setTareaActivaBacklog: (tarea: ITareaBacklog | null) => void;
+    setAgregarTarea: (nuevaTarea: ITareaBacklog) => void;
+    setEditarTarea: (tareaEditada: ITareaBacklog) => void;
+    setEliminarTarea: (idTarea: number) => void;
+
 }
 
 export const backlogStore = create<IBacklogStore>()(
@@ -48,7 +50,7 @@ export const backlogStore = create<IBacklogStore>()(
         })),
     }),
     {
-      name: 'backlog-storage', // clave en localStorage
+      name: 'backlog-storage'
     }
   )
 );

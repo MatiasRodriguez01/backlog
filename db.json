@@ -1,8 +1,63 @@
 {
   "backlog": {
-    "tareas": []
+
+    "tareas": [
+      {
+        "id": 1744249482921,
+        "idProyecto": null,
+        "titulo": "tarea no se cuanto",
+        "string": "",
+        "descripcion": "esta una des crig hhjjnm",
+        "estado": "completado",
+        "fechaLimite": "2025-05-03"
+      },
+      {
+        "id": 1744249482944,
+        "idProyecto": null,
+        "titulo": "tarea 5",
+        "string": "",
+        "descripcion": "m",
+        "estado": "pendiente",
+        "fechaLimite": "2025-04-16"
+      }
+    ]
   },
   "proyectoList": {
-    "proyectos": []
+    "proyectos": [
+      {
+        "id": 1,
+        "nombre": "proyecto",
+        "descripcion": "exrctvygg",
+        "fechaInicio": "2025-03-20",
+        "fechaCierre": "2025-03-20",
+        "tareas": [
+          {
+            "id": 1,
+            "idProyecto": 1,
+            "titulo": "tarea nueva",
+            "descripcion": "descripcion de esta tarea",
+            "estado": "pendiente",
+            "fechaLimite": "2025-04-29"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "nombre": "string 2",
+        "descripcion": "esta es una decripcion",
+        "fechaInicio": "2025-03-26",
+        "fechaCierre": "2025-03-28",
+        "tareas": []
+      },
+      {
+        "id": 3,
+        "nombre": "independiente",
+        "descripcion": "este es el proyecto e ins",
+        "fechaInicio": "2025-04-22",
+        "fechaCierre": "2025-05-08",
+        "tareas": []
+      }
+    ]
+
   }
 }
