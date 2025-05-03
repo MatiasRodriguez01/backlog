@@ -1,35 +1,41 @@
 import { tareaStore } from '../store/tareaStore'
 import { useShallow } from 'zustand/shallow'
-import { getAllTareaPorProyecto } from '../https/tareas/tareasList'
 import { ITarea } from '../types/IInterfaces'
-import { createTareaController, deleteTareaController, updateTareaController } from '../https/tareas/tareaController'
 import Swal from 'sweetalert2'
+import { deleteTaskBySpringController, getTasksBySpringController, postCreateTaskBySpringController, putUpdateTaskBySpringController } from '../https/proyectos/springTasks'
+import backlogStore from '../store/backlogStore'
+import { createTareaBacklogController } from '../https/backlog/backlogController'
 
 const useTareas = () => {
 
+    const { 
+        setAgregarTareaBacklog,
+        setEliminarTareaBacklog
+     } = backlogStore(
+        useShallow((state) => ({
+            setAgregarTareaBacklog: state.setAgregarTarea,
+            setEliminarTareaBacklog: state.setEliminarTarea
+        }))
+    )
+
     const {
         tareas,
-        tareaActiva,
         setTareas,
-        setTareaActiva,
         setAgregarTarea,
         setEditarTarea,
         setEliminarTarea
-
     } = tareaStore(
         useShallow((state) => ({
             tareas: state.tareas,
-            tareaActiva: state.tareaActiva,
             setTareas: state.setTareas,
-            setTareaActiva: state.setTareaActiva,
             setAgregarTarea: state.setAgregarTarea,
             setEditarTarea: state.setEditarTarea,
             setEliminarTarea: state.setEliminarTarea
         })))
 
-    const getTareas = async (idProyecto: number) => {
+    const getTareas = async (idProyecto: string) => {
         try {
-            const data = await getAllTareaPorProyecto(idProyecto);
+            const data = await getTasksBySpringController(idProyecto);
             console.log(data)
             if (data) setTareas(data)
         } catch (err) {
@@ -37,31 +43,27 @@ const useTareas = () => {
         }
     }
 
-    const postCrearTarea = async (idProyecto: number, nuevaTarea: ITarea) => {
+    const postCrearTarea = async (idProyecto: string, nuevaTarea: ITarea) => {
         setAgregarTarea(nuevaTarea);
         try {
 
-            const result = await createTareaController(idProyecto, nuevaTarea);
+            const result = await postCreateTaskBySpringController(idProyecto, nuevaTarea);
             console.log(result)
-            if (result) {
-                Swal.fire("Exito", "Tarea creada correctamente", "success")
-            } else {
-                Swal.fire("Error", "Tarea creada correctamente", "error")
+            Swal.fire("Exito", "Tarea creada correctamente", "success")
 
-            }
         } catch (err) {
-            setEliminarTarea(nuevaTarea.id!)
+            setEliminarTarea(nuevaTarea._id!)
             console.error("error al agregar tareas: ", err)
         }
     }
 
-    const putEditarTarea = async (idProyecto: number, tareaActualizada: ITarea) => {
+    const putEditarTarea = async (idProyecto: string, tareaActualizada: ITarea) => {
         const estadoPrevio = tareas.find((tarea) =>
-            tarea.id === tareaActualizada.id
+            tarea._id === tareaActualizada._id
         );
         setEditarTarea(tareaActualizada);
         try {
-            await updateTareaController(idProyecto, tareaActualizada);
+            await putUpdateTaskBySpringController(idProyecto, tareaActualizada);
             Swal.fire("Exito", "Tarea actualizada correctamente", "success")
         } catch (err) {
             setEditarTarea(estadoPrevio!)
@@ -69,8 +71,21 @@ const useTareas = () => {
         }
     }
 
-    const deleteTarea = async (idProyecto: number, idTarea: number) => {
-        const estadoPrevio = tareas.find((tarea) => tarea.id === idTarea);
+    const putEditarEstado = async (idProyecto: string, tareaActualizada: ITarea) => {
+        const estadoPrevio = tareas.find((tarea) =>
+            tarea._id === tareaActualizada._id
+        );
+        setEditarTarea(tareaActualizada);
+        try {
+            await putUpdateTaskBySpringController(idProyecto, tareaActualizada);
+        } catch (err) {
+            setEditarTarea(estadoPrevio!)
+            console.error("error al agregar tareas: ", err)
+        }
+    }
+
+    const deleteTarea = async (idProyecto: string, idTarea: string) => {
+        const estadoPrevio = tareas.find((tarea) => tarea._id === idTarea);
 
         const confirm = await Swal.fire({
             title: "¿Estas seguro?",
@@ -84,7 +99,7 @@ const useTareas = () => {
         if (!confirm.isConfirmed) return;
         setEliminarTarea(idTarea)
         try {
-            await deleteTareaController(idProyecto, idTarea)
+            await deleteTaskBySpringController(idProyecto, idTarea)
             Swal.fire("Eliminado", "La tarea se elimino correctamente", "success")
         } catch (error) {
             if (estadoPrevio) setAgregarTarea(estadoPrevio)
@@ -93,45 +108,29 @@ const useTareas = () => {
         }
     }
 
-    const crearTareaParaProyectos = async (idProyecto: number, nuevaTarea: ITarea) => {
-        setAgregarTarea(nuevaTarea);
+    const enviarAlBacklog = async (idProyecto: string, tarea: ITarea) => {
+        setAgregarTareaBacklog(tarea);
+        setEliminarTarea(tarea._id!)
         try {
-
-            const result = await createTareaController(idProyecto, nuevaTarea);
-            console.log("Esta tarea se envio a su proyecto: ", result)
-        } catch (err) {
-            setEliminarTarea(nuevaTarea.id!)
-            console.error("error al agregar tareas: ", err)
-        }
-    }
-
-
-    const enviarTareaAlBacklog = async (idProyecto: number, tareaAEliminar: ITarea) => {
-        const idTarea = tareaAEliminar.id;
-        const estadoPrevio = tareas.find((tarea) => tarea.id === idTarea);
-
-        setEliminarTarea(tareaAEliminar.id!)
-        try {
-            await deleteTareaController(idProyecto, idTarea!)
-            
-            Swal.fire("Exito", "Tarea fue enviada al backlog correctamente", "success")
+            await createTareaBacklogController(tarea)
+            await deleteTaskBySpringController(idProyecto, tarea._id!)
+            Swal.fire("Enviada", "La tarea se envio al backlog", "success")
         } catch (error) {
-            if (estadoPrevio) setAgregarTarea(estadoPrevio)
-            console.log("Algo salio mal al eliminar tarea: ", error);
-
+            setAgregarTarea(tarea)
+            setEliminarTareaBacklog(tarea._id!);
+            Swal.fire("Error", "No se pudo enviar al Backlog", "error")
+            console.error("Algo salio mal cuando enviamos la tarea al backlog: ", error)
         }
     }
 
     return {
         tareas,
-        tareaActiva,
         getTareas,
-        setTareaActiva,
         postCrearTarea,
         putEditarTarea,
+        putEditarEstado,
         deleteTarea,
-        crearTareaParaProyectos,
-        enviarTareaAlBacklog
+        enviarAlBacklog
     }
 }
 

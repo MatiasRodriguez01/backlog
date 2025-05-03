@@ -1,24 +1,24 @@
 import { FC, useState } from 'react';
-import { IProyecto } from '../../../types/IInterfaces'
+import { ISpring } from '../../../types/IInterfaces'
 import styles from './Sprint.module.css'
-import { useProyecto } from '../../../hooks/useProyecto';
+import { useSpring } from '../../../hooks/useSpring';
 import { CardProyect } from '../CardProyect/CardProyect';
-import { proyectoStrore } from '../../../store/proyectoStore';
+import { springStore } from '../../../store/springStore';
 
 type ISprinta = {
-    proyecto: IProyecto;
-    handleOpenModalEdit: (proyecto: IProyecto) => void;
+    spring: ISpring;
+    handleOpenModalEdit: (proyecto: ISpring) => void;
 }
 
-const Sprint: FC<ISprinta> = ({ proyecto, handleOpenModalEdit }) => {
+const Sprint: FC<ISprinta> = ({ spring, handleOpenModalEdit }) => {
 
-    const { eliminarProyecto } = useProyecto();
+    const { eliminarString } = useSpring();
 
-    const setProyectoActivo = proyectoStrore((state) => state.setProyectoActivo);
+    const setSpringActivo = springStore((state) => state.setSpringActivo);
 
     const activo = () => {
-        setProyectoActivo(null)
-        setProyectoActivo(proyecto)
+        setSpringActivo(null)
+        setSpringActivo(spring)
     }
 
     const [openModalView, setOpenModalView] = useState<boolean>(false)
@@ -27,10 +27,9 @@ const Sprint: FC<ISprinta> = ({ proyecto, handleOpenModalEdit }) => {
     return (
         <>
             <div onClick={activo} className={styles.containerSprint}>
-                <b><h3>nombre: </h3>{proyecto.nombre}</b>
-                <b><h3>descripcion: </h3>{proyecto.descripcion}</b>
-                <p><b>inicio: </b>{proyecto.fechaInicio}</p>
-                <p><b>cierre: </b>{proyecto.fechaCierre}</p>
+                <p><b>nombre: </b>{spring.nombre}</p>
+                <p><b>inicio: </b>{spring.fecha_inicio}</p>
+                <p><b>cierre: </b>{spring.fecha_cierre}</p>
                 <div className={styles.containerBotones}>
 
                     <div className={styles.botones}>
@@ -40,12 +39,12 @@ const Sprint: FC<ISprinta> = ({ proyecto, handleOpenModalEdit }) => {
                             <span className="material-symbols-outlined">visibility</span>
                         </button>
                         <button
-                            onClick={() => handleOpenModalEdit(proyecto)}
+                            onClick={() => handleOpenModalEdit(spring)}
                             className={styles.botonAzul}>
                             <span className="material-symbols-outlined">edit</span>
                         </button>
                         <button
-                            onClick={() => eliminarProyecto(proyecto.id!)}
+                            onClick={() => eliminarString(spring._id!)}
                             className={styles.botonRojo}>
                             <span className="material-symbols-outlined">delete</span>
                         </button>
@@ -56,7 +55,7 @@ const Sprint: FC<ISprinta> = ({ proyecto, handleOpenModalEdit }) => {
             {
                 openModalView &&
                 <CardProyect
-                    sprintt={proyecto}
+                    spring={spring}
                     handleCloseModal={() => setOpenModalView(false)}
                 />
             }

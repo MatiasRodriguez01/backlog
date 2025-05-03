@@ -1,9 +1,9 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react"
 import styles from "./ListaProyecto.module.css"
-import { useProyecto } from "../../../hooks/useProyecto"
+import { useSpring } from "../../../hooks/useSpring"
 import { ModalProyecto } from "../Modal/ModalProyecto"
-import { proyectoStrore } from "../../../store/proyectoStore"
-import { IProyecto } from "../../../types/IInterfaces"
+import { springStore } from "../../../store/springStore"
+import { ISpring } from "../../../types/IInterfaces"
 import Sprint from "../Sprint/Sprint"
 
 
@@ -13,16 +13,16 @@ interface ListaProyectoProps{
 }
 const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}) => {
 
-  const setProyectoActivo = proyectoStrore((state) => state.setProyectoActivo)
-  const {getProyectos, proyectos } = useProyecto();
+  const setSpringActivo = springStore((state) => state.setSpringActivo)
+  const { getSprings, springs } = useSpring();
 
   
   const [openModalSprint, setOpenModalSprint] = useState(false)
   // const sprints = sprintStore((state)=>state.sprints)
 
-  const handleOpenModalEdit = (tarea: IProyecto) => {
-    setProyectoActivo(null);
-    setProyectoActivo(tarea);
+  const handleOpenModalEdit = (tarea: ISpring) => {
+    setSpringActivo(null);
+    setSpringActivo(tarea);
     setOpenModalSprint(true);
   };
 
@@ -31,11 +31,11 @@ const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}
   };
 
   useEffect(() => {
-    const getAllProyects = async () => {
-      getProyectos()
+    const getAllSprings = async () => {
+      getSprings()
     }
 
-    getAllProyects()
+    getAllSprings()
   },[]);
   
   return (
@@ -54,7 +54,7 @@ const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}
               <button
               onClick={()=>{
                 setOpenModalSprint(true)
-                setProyectoActivo(null)
+                setSpringActivo(null)
               }}
               >
                 <span className="material-symbols-outlined">playlist_add</span>
@@ -63,9 +63,9 @@ const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}
             <hr style={{ width: '80%', height: '0.1vh', backgroundColor: 'grey' }} />
           </div>
           <div className={styles.containerTargetas}>
-            {proyectos.length > 0 ?(
-              proyectos.map((proyecto)=>(
-                <Sprint key={proyecto.id} handleOpenModalEdit={handleOpenModalEdit} proyecto={proyecto}/>
+            {springs.length > 0 ?(
+              springs.map((spring)=>(
+                <Sprint key={spring._id} handleOpenModalEdit={handleOpenModalEdit} spring={spring}/>
               ))
             ):(
               <div>
@@ -82,103 +82,3 @@ const ListaProyecto: FC<ListaProyectoProps> = ({setIsBacklogView, isBacklogView}
 }
 
 export default ListaProyecto
-// import { useEffect, useState } from "react";
-// import styles from "./ListaProyecto.module.css";
-// import { useProyecto } from "../../../hooks/useProyecto";
-// import { ModalProyecto } from "../Modal/ModalProyecto";
-// import { proyectoStrore } from "../../../store/proyectoStore";
-// import { IProyecto } from "../../../types/IInterfaces";
-// import Sprint from "../Sprint/Sprint";
-// import Backlog from "../BacklogPage/Backlog";
-
-
-
-// const ListaProyecto = () => {
-//   const setProyectotActivo = proyectoStrore(
-//     (state) => state.setProyectotActivo
-//   );
-
-//   const { getProyectos, proyectos } = useProyecto();
-
-//   useEffect(() => {
-//     getProyectos();
-//   }, []);
-
-//   const [openModalSprint, setOpenModalSprint] = useState(false);
-//   // const sprints = sprintStore((state)=>state.sprints)
-//   const [isBacklogView, setIsBacklogView] = useState(false)
-
-//   const handleOpenModalEdit = (tarea: IProyecto) => {
-//     setProyectotActivo(tarea);
-//     setOpenModalSprint(true);
-//   };
-
-//   const handleCloseModal = () => {
-//     setOpenModalSprint(false);
-//   };
-
-
-//   return (
-//     <>
-//       <div className={styles.container}>
-//         {/* Botón para alternar entre Backlog y Sprint */}
-//         <button
-//           className={styles.buttonBacklog}
-//           onClick={() => setIsBacklogView(!isBacklogView)}
-//         >
-//           {isBacklogView ? "Volver" : "Backlog"}
-//         </button>
-
-//         {/* Cambia la vista según el estado */}
-//         {isBacklogView ? (
-//           <Backlog/>
-//         ) : (
-//           <div className={styles.containerPrincipal}>
-//             <div className={styles.titulo}>
-//               <div className={styles.buttonSprints}>
-//                 <h2>Lista de Sprints</h2>
-//                 <button
-//                   onClick={() => {
-//                     setOpenModalSprint(true);
-//                     setProyectotActivo(null);
-//                   }}
-                  
-//                 >
-                  
-//                   <span className="material-symbols-outlined">playlist_add</span>
-//                 </button>
-//               </div>
-//               <hr
-//                 style={{
-//                   width: "80%",
-//                   height: "0.1vh",
-//                   backgroundColor: "grey",
-//                 }}
-//               />
-//             </div>
-//             <div className={styles.containerTargetas}>
-//               {proyectos.length > 0 ? (
-//                 proyectos.map((proyecto) => (
-//                   <Sprint
-//                     key={proyecto.id}
-//                     handleOpenModalEdit={handleOpenModalEdit}
-//                     proyecto={proyecto}
-//                   />
-//                 ))
-//               ) : (
-//                 <div>
-//                   <h3>No hay sprints</h3>
-//                 </div>
-//               )}
-//             </div>
-//           </div>
-//         )}
-//         {openModalSprint && (
-//           <ModalProyecto handleCloseModal={handleCloseModal} />
-//         )}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default ListaProyecto;

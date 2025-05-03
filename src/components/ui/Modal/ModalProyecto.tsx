@@ -1,32 +1,33 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import styles from "./ModalProyecto.module.css";
-import { IProyecto } from "../../../types/IInterfaces";
-import { proyectoStrore } from "../../../store/proyectoStore";
-import { useProyecto } from "../../../hooks/useProyecto";
+import { ISpring } from "../../../types/IInterfaces";
+import { springStore } from "../../../store/springStore";
+import { useSpring } from "../../../hooks/useSpring";
+import { ObjectId } from "bson";
 
 type IModal = {
   handleCloseModal: VoidFunction;
 }
 
-const initialState: IProyecto = {
-  id : 0,
+const initialState: ISpring = {
+  _id : "",
   nombre: "",
-  descripcion: "",
-  fechaInicio: "",
-  fechaCierre: "",
-  tareas: []
+  fecha_inicio: "",
+  fecha_cierre: "",
+  tareas: [],
+  color: ""
 };
 
 export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {
 
-  const proyectoActivo = proyectoStrore((state) => state.proyectoActivo)
+  const springActivo = springStore((state) => state.springActivo)
   // const proyectoActivo = proyectoStrore((state) => state.proyectoActivo)
 
-  const setProyectotActivo = proyectoStrore((state) => state.setProyectoActivo)
+  const setSpringActivo = springStore((state) => state.setSpringActivo)
 
-  const { crearProyecto, editarProyecto } = useProyecto()
+  const { crearSpring, editarSpring } = useSpring()
 
-  const [formValues, setFormValues] = useState<IProyecto>(initialState);
+  const [formValues, setFormValues] = useState<ISpring>(initialState);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -36,62 +37,63 @@ export const ModalProyecto: FC<IModal> = ({ handleCloseModal }) => {
   
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    if (proyectoActivo) {
-      editarProyecto(formValues)
+    if (springActivo) {
+      editarSpring(formValues)
     } else {
-      crearProyecto({ ...formValues, id: Date.now() })
+      const generatedId = new ObjectId().toString()
+      crearSpring({ ...formValues, _id: generatedId })
     }
-    setProyectotActivo(null)
+    setSpringActivo(null)
     handleCloseModal()
   }
 
   useEffect(() => {
-    if (proyectoActivo) setFormValues(proyectoActivo);
+    if (springActivo) setFormValues(springActivo);
   }, []);
   
   return (
     <div className={styles.containerPrincipalModal}>
       <div className={styles.contentPopUp}>
         <div>
-          <h3>{proyectoActivo ? "Editar sprint" : "Crear sprint"}</h3>
+          <h3>{springActivo ? "Editar sprint" : "Crear sprint"}</h3>
         </div>
         <form onSubmit={handleSubmit} className={styles.formContent}>
           <div>
-            <input
-              placeholder="Ingrese un titulo"
+          <input
               type="text"
-              required
-              onChange={handleChange}
               value={formValues.nombre}
-              autoComplete="off"
+              onChange={handleChange}
               name="nombre"
-            />
-            <textarea
-              placeholder="Ingrese una descripcion"
-              value={formValues.descripcion}
-              onChange={handleChange}
-              required name="descripcion" />
-            <input
-              type="date"
-              value={formValues.fechaInicio}
               required
-              onChange={handleChange}
-              autoComplete="off"
-              name="fechaInicio"
             />
             <input
               type="date"
-              value={formValues.fechaCierre}
+              value={formValues.fecha_inicio}
               required
               onChange={handleChange}
               autoComplete="off"
-              name="fechaCierre"
+              name="fecha_inicio"
+            />
+            <input
+              type="date"
+              value={formValues.fecha_cierre}
+              required
+              onChange={handleChange}
+              autoComplete="off"
+              name="fecha_cierre"
+            />
+            <input
+              type="text"
+              value={formValues.color}
+              onChange={handleChange}
+              name="color"
+              required
             />
           </div>
           <div className={styles.buttonCard}>
             <button className={styles.buttonCancel} onClick={handleCloseModal}>Cancelar</button>
             <button className={styles.buttonSubmit} type="submit">
-              {proyectoActivo ? "Editar proyecto" : "Crear proyecto"}
+              {springActivo ? "Editar proyecto" : "Crear proyecto"}
             </button>
           </div>
         </form>

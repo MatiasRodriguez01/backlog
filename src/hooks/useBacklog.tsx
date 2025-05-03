@@ -1,15 +1,24 @@
 import { useShallow } from 'zustand/shallow'
-import { ITarea, ITareaBacklog } from '../types/IInterfaces'
+import { ITarea } from '../types/IInterfaces'
 import { createTareaBacklogController, deleteTareaBacklogController, getAllTareasBacklogController, updateTareaBacklogController } from '../https/backlog/backlogController'
 import Swal from 'sweetalert2'
 import backlogStore from '../store/backlogStore'
-import useTareas from './useTareas'
+import { postCreateTaskBySpringController } from '../https/proyectos/springTasks'
+import { tareaStore } from '../store/tareaStore'
 
 const useBacklog = () => {
-    
+
+    const {
+        setAgregarTareaSpring,
+        setEliminarTareaSpring
+    } = tareaStore(
+        useShallow((state) => ({
+            setAgregarTareaSpring: state.setAgregarTarea,
+            setEliminarTareaSpring: state.setEliminarTarea
+        })))
+
     const {
         tareasBacklog,
-        tareaBacklogActiva,
         setTareasBacklog,
         setAgregarTarea,
         setEditarTarea,
@@ -17,7 +26,6 @@ const useBacklog = () => {
     } = backlogStore(
         useShallow((state) => ({
             tareasBacklog: state.tareasBacklog,
-            tareaBacklogActiva: state.tareaBacklogActiva,
             setTareasBacklog: state.setTareasBacklog,
             setAgregarTarea: state.setAgregarTarea,
             setEditarTarea: state.setEditarTarea,
@@ -31,27 +39,26 @@ const useBacklog = () => {
             const data = await getAllTareasBacklogController();
             if (data) {
                 setTareasBacklog(data)
-                console.log(tareasBacklog)
             }
         } catch (err) {
             console.error("error al mostrar las tareas del backlog: ", err)
         }
     }
 
-    const postCrearTareaBacklog = async (nuevaTarea: ITareaBacklog) => {
+    const postCrearTareaBacklog = async (nuevaTarea: ITarea) => {
         setAgregarTarea(nuevaTarea);
         try {
             await createTareaBacklogController(nuevaTarea);
             Swal.fire("Exito", "Tarea creada correctamente", "success")
         } catch (err) {
-            setEliminarTarea(nuevaTarea.id!)
+            if (nuevaTarea) setEliminarTarea(nuevaTarea._id!)
             console.error("error al agregar tareas: ", err)
         }
     }
 
-    const putEditarTareaBacklog = async (tareaActualizada: ITareaBacklog) => {
+    const putEditarTareaBacklog = async (tareaActualizada: ITarea) => {
         const estadoPrevio = tareasBacklog.find((tarea) =>
-            tarea.id === tareaActualizada.id
+            tarea._id === tareaActualizada._id
         );
         setEditarTarea(tareaActualizada);
         try {
@@ -63,8 +70,8 @@ const useBacklog = () => {
         }
     }
 
-    const deleteTareaBacklog = async (idTarea: number) => {
-        const estadoPrevio = tareasBacklog.find((tarea) => tarea.id === idTarea);
+    const deleteTareaBacklog = async (idTarea: string) => {
+        const estadoPrevio = tareasBacklog.find((tarea) => tarea._id === idTarea);
 
         const confirm = await Swal.fire({
             title: "¿Estas seguro?",
@@ -86,43 +93,31 @@ const useBacklog = () => {
 
         }
     }
-    const crearTareaParaElBacklog = async (nuevaTarea: ITareaBacklog) => {
-        setAgregarTarea(nuevaTarea);
+
+
+    const sacarTaskBacklogASpring = async (idSpring: string, task: ITarea) => {
+        const estadoPrevio = tareasBacklog.find((tarea) => tarea._id === task._id);
+        setAgregarTareaSpring(task)
+        setEliminarTarea(task._id!)
         try {
-            await createTareaBacklogController(nuevaTarea);
-        } catch (err) {
-            setEliminarTarea(nuevaTarea.id!)
-            console.error("error al agregar tareas: ", err)
-        }
-    }
-
-    const { crearTareaParaProyectos } = useTareas();
-
-    const sacarTareaDelBacklog = async (tareaAEliminar: ITareaBacklog, tareaACrear: ITarea) => {
-        const estadoPrevio = tareasBacklog.find((tarea) => tarea.id === tareaAEliminar.id);
-        const idProyecto = tareaACrear.idProyecto!;
-
-        setEliminarTarea(tareaAEliminar.id!)
-        try {
-            await deleteTareaBacklogController(tareaAEliminar.id!)
-            crearTareaParaProyectos(idProyecto, tareaACrear)
-            Swal.fire("Exito", "Tarea fue extraida al backlog correctamente", "success")
+            await postCreateTaskBySpringController(idSpring, task)
+            await deleteTareaBacklogController(task._id!)
+            Swal.fire("Enviado", "La tarea se envio a un proyecto", "success")
         } catch (error) {
-            if (estadoPrevio) setAgregarTarea(estadoPrevio)
-            console.log("Algo salio mal al sacar la Tarea Del Backlog : ", error);
+            setAgregarTarea(estadoPrevio!)
+            setEliminarTareaSpring(task._id!)
+            console.log("Algo salio mal al eliminar tarea: ", error);
 
         }
     }
 
     return {
         tareasBacklog,
-        tareaBacklogActiva,
         getTareasBacklog,
         postCrearTareaBacklog,
         putEditarTareaBacklog,
         deleteTareaBacklog,
-        sacarTareaDelBacklog,
-        crearTareaParaElBacklog
+        sacarTaskBacklogASpring
     }
 }
 

@@ -5,25 +5,26 @@ import { ITarea } from '../../../types/IInterfaces'
 import { tareaStore } from '../../../store/tareaStore';
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import useTareas from '../../../hooks/useTareas';
+import { ObjectId } from 'bson';
 // import { proyectoStrore } from '../../../store/proyectoStore';
 
 interface IModalTarea {
-    idProyecto: number;
+    idSpring: string;
     handleCloseModal: VoidFunction;
 }
 
 
 const initialState: ITarea = {
-    id: 0,
-    idProyecto: null,
+    _id: "",
     titulo: "",
     estado: "",
     descripcion: "",
-    fechaLimite: ""
+    fechaLimite: "",
+    color: ""
 }
 
 
-const ModalTarea: FC<IModalTarea> = ({ idProyecto, handleCloseModal }) => {
+const ModalTarea: FC<IModalTarea> = ({ idSpring, handleCloseModal }) => {
 
     const tareaActva = tareaStore((state) => state.tareaActiva);
     // const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
@@ -42,9 +43,10 @@ const ModalTarea: FC<IModalTarea> = ({ idProyecto, handleCloseModal }) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
         if (tareaActva) {
-            putEditarTarea(idProyecto, formValues)
+            putEditarTarea(idSpring, formValues)
         } else {
-            postCrearTarea(idProyecto, { ...formValues, id: Date.now(), idProyecto: idProyecto })
+            const generatedId = new ObjectId().toString()
+            postCrearTarea(idSpring, { ...formValues, _id: generatedId })
         }
         setTareaActva(null)
         handleCloseModal()
@@ -93,6 +95,13 @@ const ModalTarea: FC<IModalTarea> = ({ idProyecto, handleCloseModal }) => {
                             name="fechaLimite"
                             onChange={handleChange}
                             value={formValues.fechaLimite}
+                            required />
+                        <input
+                            type="text"
+                            placeholder='Ingrese un color: '
+                            onChange={handleChange}
+                            value={formValues.color}
+                            name="color"
                             required />
                     </div>
                     <div className={styles.buttonCard}>

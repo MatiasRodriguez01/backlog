@@ -2,29 +2,28 @@
 
 import { useShallow } from 'zustand/shallow';
 import useBacklog from '../../../hooks/useBacklog';
-import { ITareaBacklog } from '../../../types/IInterfaces';
+import { ITarea } from '../../../types/IInterfaces';
 import styles from './ModalTarea.module.css'
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import backlogStore from '../../../store/backlogStore';
+import { ObjectId } from 'bson';
 
 interface IModalTarea {
-    idProyecto: null;
     handleCloseModal: VoidFunction;
 }
 
 
-const initialState: ITareaBacklog = {
-    id: 0,
-    idProyecto: null,
+const initialState: ITarea = {
+    _id: "",
     titulo: "",
     estado: "",
-    string: "",
     descripcion: "",
-    fechaLimite: ""
+    fechaLimite: "",
+    color: ""
 }
 
 
-const ModalTarea: FC<IModalTarea> = ({ idProyecto, handleCloseModal }) => {
+const ModalTarea: FC<IModalTarea> = ({ handleCloseModal }) => {
 
     const {
         tareaBacklogActiva,
@@ -39,7 +38,7 @@ const ModalTarea: FC<IModalTarea> = ({ idProyecto, handleCloseModal }) => {
 
     const { putEditarTareaBacklog, postCrearTareaBacklog } = useBacklog()
 
-    const [formValues, setFormValues] = useState<ITareaBacklog>(initialState);
+    const [formValues, setFormValues] = useState<ITarea>(initialState);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -52,7 +51,8 @@ const ModalTarea: FC<IModalTarea> = ({ idProyecto, handleCloseModal }) => {
         if (tareaBacklogActiva) {
             putEditarTareaBacklog(formValues)
         } else {
-            postCrearTareaBacklog({ ...formValues, id: Date.now(), idProyecto: idProyecto })
+            const generatedId = new ObjectId().toString()
+            postCrearTareaBacklog({ ...formValues, _id: generatedId })
         }
         setTareaActivaBacklog(null)
         handleCloseModal()

@@ -1,52 +1,35 @@
 import { ChangeEvent, FC, useState } from "react";
-import { ITarea, ITareaBacklog } from "../../../types/IInterfaces";
+import { ITarea } from "../../../types/IInterfaces";
 import styles from "./Tarea.module.css";
 import useTareas from "../../../hooks/useTareas";
 // import useBacklog from "../../../hooks/useBacklog";
 import { tareaStore } from "../../../store/tareaStore";
 import { CardTarea } from "../CardTarea/CardTarea";
-import useBacklog from "../../../hooks/useBacklog";
 
 interface ITareaCard {
+    idSpring: string;
     tarea: ITarea;
     handleEditTarea: (tarea: ITarea) => void;
 }
 
-const Tarea: FC<ITareaCard> = ({ tarea, handleEditTarea }) => {
+const Tarea: FC<ITareaCard> = ({ idSpring, tarea, handleEditTarea }) => {
 
     const [openModalView, setOpenModalView] = useState<boolean>(false)
 
+    const tareaActiva = tareaStore((state) => state.tareaActiva)
     const setTareaActiva = tareaStore((state) => state.setTareaActiva)
 
-    const { deleteTarea, putEditarTarea, tareaActiva } = useTareas();
+    const { deleteTarea, putEditarEstado, enviarAlBacklog } = useTareas();
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
 
-        setTareaActiva(tarea);
+        setTareaActiva(tarea)
         if (tareaActiva) {
-            putEditarTarea(tareaActiva.idProyecto!, { ...tareaActiva, estado: value})
+            putEditarEstado(idSpring, { ...tareaActiva, estado: value})
             setTareaActiva(null)
         }
     };
-
-    const { enviarTareaAlBacklog } = useTareas();
-    const { crearTareaParaElBacklog } = useBacklog()
-
-    const handleEnviarBacklog = (tarea: ITarea) => {
-        const { id, titulo, descripcion, estado, fechaLimite } = tarea;
-        const nuevaTarea: ITareaBacklog = {
-            id, 
-            idProyecto: null,
-            titulo, 
-            string: "",
-            descripcion, 
-            estado, 
-            fechaLimite
-        }
-        crearTareaParaElBacklog(nuevaTarea)
-        enviarTareaAlBacklog(tarea.idProyecto!, tarea)
-    }
 
     const activo = () => {
         setTareaActiva(null)
@@ -60,7 +43,7 @@ const Tarea: FC<ITareaCard> = ({ tarea, handleEditTarea }) => {
                 <p>Descripcion: {tarea.descripcion}</p>
                 <p>Fecha limite: {tarea.fechaLimite}</p>
                 <div className={styles.botones}>
-                    <button onClick={() => handleEnviarBacklog(tarea)}  className={styles.botonBacklog} >
+                    <button onClick={() => enviarAlBacklog(idSpring, tarea)} className={styles.botonBacklog} >
                         <p>Enviar al Backlog</p>
                         <span className="material-symbols-outlined">add_box</span>
                     </button>
@@ -76,7 +59,7 @@ const Tarea: FC<ITareaCard> = ({ tarea, handleEditTarea }) => {
                     <button className={styles.azul} onClick={() => handleEditTarea(tarea)}>
                         <span className="material-symbols-outlined">edit</span>
                     </button>
-                    <button onClick={() => deleteTarea(tarea.idProyecto!, tarea.id!)} className={styles.red}>
+                    <button onClick={() => deleteTarea(idSpring, tarea._id!)} className={styles.red}>
                         <span className="material-symbols-outlined">delete</span>
                     </button>
                 </div>

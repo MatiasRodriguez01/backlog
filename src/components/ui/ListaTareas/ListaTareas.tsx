@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./ListaTareas.module.css";
 import Tarea from "../Tarea/Tarea";
-import { proyectoStrore } from "../../../store/proyectoStore";
+import { springStore } from "../../../store/springStore";
 import useTareas from "../../../hooks/useTareas";
 import ModalTarea from "../ModalTarea/ModalTarea";
 import { tareaStore } from "../../../store/tareaStore";
@@ -13,8 +13,7 @@ import { setEstadoLista } from "../../../hooks/useTareaEstado";
 const ListaTareas = () => {
   const setTareaActiva = tareaStore((state) => state.setTareaActiva);
 
-  const proyectoActivo = proyectoStrore((state) => state.proyectoActivo);
-
+  const springActivo = springStore((state) => state.springActivo);
 
   const { getTareas, tareas } = useTareas();
 
@@ -37,12 +36,16 @@ const ListaTareas = () => {
 
   useEffect(() => {
     const getAllTareas = async () => {
-      if (proyectoActivo) await getTareas(proyectoActivo.id!);
+      if (springActivo) {
+        const idspring: string = springActivo._id
+        await getTareas(idspring);
+        
+      }
       console.log("Tareas actualizadas");
     };
   
     getAllTareas();
-  }, [proyectoActivo]); // SOLO se dispara cuando cambia el proyecto
+  }, [springActivo]); // SOLO se dispara cuando cambia el proyecto
   
   useEffect(() => {
     if (tareas.length > 0) {
@@ -61,7 +64,7 @@ const ListaTareas = () => {
     <>
       <div className={styles.containerPrincipal}>
         <div className={styles.titulo}>
-          <h2>Nombre de la sprint</h2>
+          <h2>Nombre de la sprint: {springActivo?.nombre}</h2>
         </div>
         <div className={styles.buttonAddTarea}>
           <h2>Tareas en la sprint: </h2>
@@ -79,9 +82,9 @@ const ListaTareas = () => {
               <h2>Pendiente</h2>
             </div>
             {
-              proyectoActivo && (tareas.length > 0) ? (
+              springActivo && (tareas.length > 0) ? (
                 tareasPendientes.map((tarea, index) => (
-                  <Tarea key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
+                  <Tarea idSpring={springActivo._id!} key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
                 ))
               ) : (
                 <>
@@ -96,9 +99,9 @@ const ListaTareas = () => {
               <h2>En proceso</h2>
             </div>
             {
-              proyectoActivo && (tareas.length > 0) ? (
+              springActivo && (tareas.length > 0) ? (
                 tareasEnProceso.map((tarea, index) => (
-                  <Tarea key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
+                  <Tarea idSpring={springActivo._id!}  key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
                 ))
               ) : (
                 <>
@@ -113,9 +116,9 @@ const ListaTareas = () => {
               <h2>completado</h2>
             </div>
             {
-              proyectoActivo && (tareas.length > 0) ? (
+              springActivo && (tareas.length > 0) ? (
                 tareasCompletadas.map((tarea, index) => (
-                  <Tarea key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
+                  <Tarea idSpring={springActivo._id!}  key={index} tarea={tarea} handleEditTarea={handleEditTarea} />
 
                 ))
               ) : (
@@ -132,7 +135,7 @@ const ListaTareas = () => {
       {
         openModalTarea &&
         <ModalTarea
-          idProyecto={proyectoActivo!.id!}
+          idSpring={springActivo!._id!}
           handleCloseModal={() => setOpenModalTarea(false)} />
       }
     </>

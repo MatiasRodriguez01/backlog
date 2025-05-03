@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Backlog.module.css";
 import ModalTarea from "../ModalBacklog/ModalTarea";
 import backlogStore from "../../../store/backlogStore";
-import { ITareaBacklog } from "../../../types/IInterfaces";
+import { ITarea } from "../../../types/IInterfaces";
 import useBacklog from "../../../hooks/useBacklog";
 import { ListGroup } from "react-bootstrap";
 import TareaBacklog from "../TareaBacklog/TareaBacklog";
@@ -14,7 +14,7 @@ const Backlog = () => {
 
   const [openModalTarea, setOpenModalTarea] = useState<boolean>(false);
 
-  const handleOpenModalEdit = (tarea: ITareaBacklog) => {
+  const handleOpenModalEdit = (tarea: ITarea) => {
     setTareaActivaBacklog(null);
     setTareaActivaBacklog(tarea);
     setOpenModalTarea(true);
@@ -52,7 +52,7 @@ const Backlog = () => {
             {
               tareasBacklog.length > 0 ? (
                 tareasBacklog.map((tarea) => (
-                  <ListGroup.Item key={tarea.id}>
+                  <ListGroup.Item key={tarea._id}>
                       <TareaBacklog tarea={tarea} handleOpenModalEdit={handleOpenModalEdit} />
                   </ListGroup.Item>
                 ))
@@ -71,7 +71,6 @@ const Backlog = () => {
 
       {openModalTarea && (
         <ModalTarea
-          idProyecto={null}
           handleCloseModal={() => setOpenModalTarea(false)}
         />
       )}

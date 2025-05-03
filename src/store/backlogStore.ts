@@ -1,15 +1,15 @@
 
 import { create } from 'zustand'
-import { ITareaBacklog } from '../types/IInterfaces'
+import { ITarea } from '../types/IInterfaces'
 
 interface IBacklogStore {
-    tareasBacklog: ITareaBacklog[];
-    tareaBacklogActiva: ITareaBacklog | null;
-    setTareasBacklog: (arrayTareas: ITareaBacklog[]) => void;
-    setTareaActivaBacklog: (tarea: ITareaBacklog | null) => void;
-    setAgregarTarea: (nuevaTarea: ITareaBacklog) => void;
-    setEditarTarea: (tareaEditada: ITareaBacklog) => void;
-    setEliminarTarea: (idTarea: number) => void;
+    tareasBacklog: ITarea[];
+    tareaBacklogActiva: ITarea | null;
+    setTareasBacklog: (arrayTareas: ITarea[]) => void;
+    setTareaActivaBacklog: (tarea: ITarea | null) => void;
+    setAgregarTarea: (nuevaTarea: ITarea) => void;
+    setEditarTarea: (tareaEditada: ITarea) => void;
+    setEliminarTarea: (idTarea: string) => void;
 }
 
 export const backlogStore = create<IBacklogStore>((set) => ({
@@ -26,13 +26,13 @@ export const backlogStore = create<IBacklogStore>((set) => ({
     })), 
     setEditarTarea: (tareaActualizada) => set((state) => {
         const result = state.tareasBacklog.map((tarea) => 
-            tarea.id === tareaActualizada.id ? {...tarea, ...tareaActualizada} : tarea
+            tarea._id === tareaActualizada._id ? {...tarea, ...tareaActualizada} : tarea
         );
         return { tareasBacklog: result };
     }),
     setEliminarTarea: (tareaEliminada) => set((state) => {
         const result = state.tareasBacklog.filter((tarea) => 
-            tarea.id !== tareaEliminada
+            tarea._id !== tareaEliminada
         );
         return { tareasBacklog: result };
     })

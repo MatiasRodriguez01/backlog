@@ -1,35 +1,27 @@
+
 export interface IProyectosList {
-    proyectos: IProyecto[]
+    proyectos: ISpring[]
 }
 
 export interface IBacklog {
     tareas: ITarea[]
 }
 
-export interface IProyecto {
-    id?: number,
+export interface ISpring {
+    _id: string
     nombre: string
-    descripcion: string
-    fechaInicio: string
-    fechaCierre: string
+    fecha_inicio: string
+    fecha_cierre: string
     tareas: ITarea[]
+    color: string
 }
 
 export interface ITarea {
-    id?:number
-    idProyecto: number | null
+    _id:string
     titulo:string
-    estado: string
     descripcion: string
+    estado: string
     fechaLimite: string
+    color: string
 }
 
-export interface ITareaBacklog {
-    id?:number
-    idProyecto: number | null
-    titulo:string
-    estado: string
-    string: string
-    descripcion: string
-    fechaLimite: string
-}

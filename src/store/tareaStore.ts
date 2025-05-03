@@ -8,7 +8,7 @@ interface ITareaStore {
     setTareas: (arrayTareas: ITarea[]) => void,
     setAgregarTarea: (nuevaTarea: ITarea) => void;
     setEditarTarea: (tareaEditada: ITarea) => void;
-    setEliminarTarea: (idTarea: number) => void;
+    setEliminarTarea: (idTarea: string) => void;
 }
 
 export const tareaStore = create<ITareaStore>((set)=>({
@@ -25,13 +25,13 @@ export const tareaStore = create<ITareaStore>((set)=>({
     })),
     setEditarTarea: (tareaEditada) => set((state) => {
         const result = state.tareas.map((tarea) => 
-            tarea.id === tareaEditada.id ? { ...tarea, ...tareaEditada } : tarea
+            tarea._id === tareaEditada._id ? { ...tarea, ...tareaEditada } : tarea
         );
         return { tareas: result }
     }), 
     setEliminarTarea: (idTarea) => set((state) => {
         const result = state.tareas.filter((tarea) => 
-            tarea.id !== idTarea 
+            tarea._id !== idTarea 
         );
         return { tareas: result }
     })

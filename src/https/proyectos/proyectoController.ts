@@ -1,70 +1,58 @@
 import axios from "axios";
-import { IProyecto, IProyectosList } from "../../types/IInterfaces";
-import { API_PROYECTS } from "../../utils/constantes";
-import { putProyectoList } from "./proyectoList";
+import { ISpring } from "../../types/IInterfaces";
+
+const API_SPRING = 'http://localhost:3000/springs';
 
 
 // tener todos los proyectos
-export const getProyectosController = async () => {
+export const getSpringsController = async () => {
     try {
-        const response = await axios.get<IProyectosList>(API_PROYECTS);
+        const response = await axios.get<ISpring[]>(API_SPRING);
         return response.data;
     } catch (err) {
-        console.error("algo salio mal en getProyectosController: ", err)
+        console.error("algo salio mal en getSpringsController: ", err)
+    }
+}
+
+// mostrar una spring por id
+export const getSpringByIdController = async (idSpring: string) => {
+    try {
+        const response = await axios.get<ISpring>(`${API_SPRING}/${idSpring}`);
+        return response.data;
+    } catch (err) {
+        console.error("algo salio mal en getSpringByIdController: ", err)
     }
 }
 
 // crear un proyecto nuevo: post
-export const createProyectoController = async (newProyecto: IProyecto) => {
+export const createSpringController = async (newProyecto: ISpring) => {
     try {
-        const proyectosBd = await getProyectosController();
-        if (proyectosBd) {
-            console.log("IF - : ", proyectosBd)
-            await putProyectoList([...proyectosBd.proyectos, newProyecto])
-
-        } else {
-            console.log("ELSE - createProyectoController: no exiten vamos a crear proyectos!!")
-            await putProyectoList([newProyecto])
-        }
-
-        return newProyecto;
+        const response = await axios.post<ISpring>(API_SPRING, newProyecto);
+        return response.data
     } catch (err) {
-        console.error("Algo salio mal en createProyectoController: ", err)
+        console.error("Algo salio mal en createSpringController: ", err)
     }
 }
 
-// editar un proyecto: put
-export const editProyectoController = async (proyectEdit: IProyecto) => {
+// editar un proyecto: put (Id)
+export const editSpringController = async (proyectEdit: ISpring) => {
     try {
-        const proyectosBd = await getProyectosController();
-        if (proyectosBd){
-            const result = proyectosBd.proyectos.map((proyectBd) => 
-                proyectBd.id === proyectEdit.id ? { ... proyectBd, ...proyectEdit } : proyectBd
-            );
-            console.log("editProyectoController: ", result)
-            await putProyectoList(result)
-        }
-        return proyectEdit;
+        const response = await axios.put<ISpring>(`${API_SPRING}/${proyectEdit._id}`, {
+            ...proyectEdit
+        });
+        return response.data;
     } catch (err) {
-        console.log("algo salio mal en editProyectoController: ", err)
+        console.log("algo salio mal en editSpringController: ", err)
     }
 }
 
 // eliminar un proyecto: delete
 
-export const deleteProyectoController = async (idProyect: number) => {
+export const deleteSpringController = async (idProyect: string) => {
     try {
-        const proyectosBd = await getProyectosController();
-
-        if (proyectosBd) {
-            const result = proyectosBd.proyectos.filter(
-                (proyectBd) => proyectBd.id !== idProyect
-            );
-            console.log("deleteProyectoController: ", result)
-            await putProyectoList(result)
-        }
-
+        const response = await axios.delete<ISpring>(`${API_SPRING}/${idProyect}`);
+        return response.data;
     } catch (err) {
-        console.error("Algo salio mal en deleteProyectoDelete: ", err)
+        console.error("Algo salio mal en deleteSpringController: ", err)
     }
 }

@@ -1,59 +1,42 @@
 import axios from "axios";
-import { ITareaBacklog } from "../../types/IInterfaces";
-import { API_BACKLOG } from "../../utils/constantes";
-import { putBacklogListController } from "./backlogList";
+import { ITarea } from "../../types/IInterfaces";
+
+const API_BACKLOG = 'http://localhost:3000/backlog'
+
 
 export const getAllTareasBacklogController = async () => {
     try {
-        const response = await axios.get<{ tareas: ITareaBacklog[] }>(API_BACKLOG);
-        const result: ITareaBacklog[] = (response.data.tareas)
-        return result
+        const response = await axios.get<ITarea[]>(`${API_BACKLOG}/tasks`);
+        return response.data
     } catch (err) {
         console.error("algo salio mal en getAllTareasBacklogController: ", err)
     }
 }
 
-export const createTareaBacklogController = async (nuevaTarea: ITareaBacklog) => {
+export const createTareaBacklogController = async (nuevaTarea: ITarea) => {
     try {
-        const tareasBacklog = await getAllTareasBacklogController();
-        if (tareasBacklog) {
-            console.log("IF createTareaBacklogController: ", tareasBacklog)
-            await putBacklogListController([...tareasBacklog, nuevaTarea])
-        } else {
-            console.log("ELSE - createTareaBacklogController: no exite vamos a crear tareas!!")
-            await putBacklogListController([nuevaTarea])
-        }
-        return nuevaTarea;
+        const response = await axios.post<ITarea>(`${API_BACKLOG}/create-task`, nuevaTarea);
+        return response.data;
     } catch (err) {
         console.error("Algo salio mal en el createTareaBacklogController: ", err)
     }
 }
 
-export const updateTareaBacklogController = async (tareaActualizada: ITareaBacklog) => {
+export const updateTareaBacklogController = async (tareaActualizada: ITarea) => {
     try {
-        const tareasBacklog = await getAllTareasBacklogController();
-        if (tareasBacklog) {
-            const result = tareasBacklog.map((tarea) =>
-                tarea.id === tareaActualizada.id ? { ...tarea, ...tareaActualizada } : tarea
-            );
-            console.log("updateTareaBacklogController: ", tareaActualizada)
-            await putBacklogListController(result)
-            return tareaActualizada;
-        }
+        const response = await axios.put<ITarea>(`${API_BACKLOG}/update-task/${tareaActualizada._id}`, {
+            ...tareaActualizada
+        });
+        return response.data;
     } catch (err) {
         console.error("Algo salio mal en el updateTareaBacklogController: ", err)
     }
 }
 
-export const deleteTareaBacklogController = async (idTarea: number) => {
+export const deleteTareaBacklogController = async (idTarea: string) => {
     try {
-        const tareasBacklog = await getAllTareasBacklogController();
-        if (tareasBacklog) {
-            const result = tareasBacklog.filter((tarea) => tarea.id !== idTarea);
-            console.log("deleteTareaBacklogController ID: ", idTarea)
-            await putBacklogListController(result)
-
-        }
+        const response = await axios.delete<ITarea>(`${API_BACKLOG}/delete-task/${idTarea}`);
+        return response.data;
     } catch (err) {
         console.error("Algo salio mal en el deleteTareaBacklogController: ", err)
     }
