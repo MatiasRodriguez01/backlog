@@ -6,6 +6,7 @@ import { CardTarea } from "../CardTarea/CardTarea";
 import { ITarea } from "../../../types/IInterfaces";
 import useTareas from "../../../hooks/useTareas";
 import { useSpring } from "../../../hooks/useSpring";
+import { ObjectId } from "bson";
 
 interface ITareaCard {
     tarea: ITarea;
@@ -35,8 +36,10 @@ const TareaBacklog: FC<ITareaCard> = ({ tarea, handleOpenModalEdit }) => {
             // sacarTaskBacklogASpring(idSpring, task)
             console.log(spring)
             console.log(task)
-            const { _id, color, descripcion, estado, fechaLimite, titulo }  = task
-            const newTask = { _id_:, color, descripcion, estado, fechaLimite, titulo }
+            const id = new ObjectId().toString()
+            const { color, descripcion, estado, fechaLimite, titulo }  = task
+            
+            const newTask: ITarea = { _id: id, color, descripcion, estado, fechaLimite, titulo }
 
             postCrearTarea(spring, newTask)
         }
